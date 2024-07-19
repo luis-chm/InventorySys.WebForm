@@ -43,9 +43,9 @@
                                         <%# Eval("MaterialTransaction.Material.MaterialDescription") %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Fecha de transaccion">
+                                <asp:TemplateField HeaderText="Fecha de la transaccion">
                                     <ItemTemplate>
-                                        <%# Eval("MaterialTransaction.MaterialTransactionDate") %>
+                                        <%# Eval("MaterialTransaction.MaterialTransactionDate", "{0:yyyy-MM-dd}") %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Tipo de transaccion">

@@ -43,7 +43,11 @@
                                 <asp:BoundField DataField="MaterialTransactionID" HeaderText="ID de la transaccion" />
                                 <asp:BoundField DataField="MaterialTransactionType" HeaderText="Tipo de transaccion" />
                                 <asp:BoundField DataField="MaterialTransactionQuantity" HeaderText="Cantidad de material" />
-                                <asp:BoundField DataField="MaterialTransactionDate" HeaderText="Fecha de la transaccion" />
+                                <asp:TemplateField HeaderText="Fecha de la transaccion">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialTransactionDate", "{0:yyyy-MM-dd}") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Nombre de Usuario">
                                     <ItemTemplate>
                                         <%# Eval("User.UserName") %>

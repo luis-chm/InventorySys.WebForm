@@ -70,7 +70,11 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="MaterialIMG" HeaderText="Imagen" />
-                                <asp:BoundField DataField="MaterialReceivedDate" HeaderText="Fecha de ingreso" />
+                                <asp:TemplateField HeaderText="Fecha de ingreso">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialReceivedDate", "{0:yyyy-MM-dd}") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="MaterialStock" HeaderText="Stock" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
