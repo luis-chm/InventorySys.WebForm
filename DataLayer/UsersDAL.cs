@@ -17,7 +17,8 @@ namespace DataLayer
             List<Users> lista = new List<Users>();
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("Select * from tbl_Users", conn);
+                SqlCommand cmd = new SqlCommand("SELECT u.UserID,u.UserName,u.UserEmail,u.UserEncryptedPassword,u.RoleID,r.RoleName " +
+                    "FROM [dbo].[tbl_Users] u INNER JOIN [dbo].[tbl_Roles] r ON u.RoleID = r.RoleID", conn);
                 cmd.CommandType = CommandType.Text;
                 try
                 {
@@ -33,6 +34,7 @@ namespace DataLayer
                                 UserEmail = dr["UserEmail"].ToString(),
                                 UserEncryptedPassword = dr["UserEncryptedPassword"].ToString(),
                                 RoleID = Convert.ToInt32(dr["RoleID"]),
+                                Role = new Roles { RoleName = dr["RoleName"].ToString() }
                                 
                             });
                         }

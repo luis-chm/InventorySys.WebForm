@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <asp:LinkButton runat="server" OnClick="btnNuevo_Click" CssClass="btn btn-success">
                     <i class="bi bi-plus-lg"></i> Nuevo
-                </asp:LinkButton>
+                        </asp:LinkButton>
                     </div>
                 </div>
                 <br />
@@ -43,24 +43,45 @@
                                 <asp:BoundField DataField="MaterialID" HeaderText="ID del material" />
                                 <asp:BoundField DataField="MaterialCode" HeaderText="Codigo del material" />
                                 <asp:BoundField DataField="MaterialDescription" HeaderText="Descripcion" />
-                                <asp:BoundField DataField="CollectionID" HeaderText="ID de coleccion" />
-                                 <asp:BoundField DataField="FinitureID" HeaderText="ID de acabado" />
-                                 <asp:BoundField DataField="FormatID" HeaderText="ID de formato" />
-                                 <asp:BoundField DataField="SiteID" HeaderText="ID de sitio" />
-                                 <asp:BoundField DataField="MaterialIMG" HeaderText="Imagen" />
-                                 <asp:BoundField DataField="MaterialReceivedDate" HeaderText="Fecha de ingreso" />
-                                 <asp:BoundField DataField="MaterialStock" HeaderText="Stock" />
-                                 <asp:BoundField DataField="UserID" HeaderText="ID de usuario" />
+                                <asp:TemplateField HeaderText="Nombre de coleccion">
+                                    <ItemTemplate>
+                                        <%# Eval("Collection.CollectionName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nombre de acabado">
+                                    <ItemTemplate>
+                                        <%# Eval("Finiture.FinitureName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nombre de formato">
+                                    <ItemTemplate>
+                                        <%# Eval("Format.FormatName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nombre de sitio">
+                                    <ItemTemplate>
+                                        <%# Eval("Site.SiteName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Nombre de usuario">
+                                    <ItemTemplate>
+                                        <%# Eval("User.UserName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="MaterialIMG" HeaderText="Imagen" />
+                                <asp:BoundField DataField="MaterialReceivedDate" HeaderText="Fecha de ingreso" />
+                                <asp:BoundField DataField="MaterialStock" HeaderText="Stock" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
                                         <div class="d-flex justify-content-center">
-                                        <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
-                                            CommandArgument='<% #Eval("MaterialID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
+                                            <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
+                                                CommandArgument='<% #Eval("MaterialID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
 
                                         <asp:LinkButton runat="server" OnClick="btnEliminar_Click" CssClass="btn btn-sm btn-danger"
                                             OnClientClick="return confirm('¿Deseas eliminar al material?')"
                                             CommandArgument='<% #Eval("MaterialID") %>'><i class="bi bi-trash3"></i> Eliminar</asp:LinkButton>&nbsp;
-                                      </div>
+                                        </div>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -70,22 +91,22 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.dataTables1').DataTable({
-            language: {
-                url: '../../Content/dist/js/es-MX.json'
-            },
-            stripeClasses: [], // Clases de estilos para filas alternas
-            headerCallback: function (thead, data, start, end, display) {
-                $(thead).find('th').css({
-                    'background-color': '#333', // Estilo de fondo del encabezado
-                    'color': 'white', // Color del texto del encabezado
-                    'text-align': 'center' // Centrar el texto del encabezado
-                });
-            }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTables1').DataTable({
+                language: {
+                    url: '../../Content/dist/js/es-MX.json'
+                },
+                stripeClasses: [], // Clases de estilos para filas alternas
+                headerCallback: function (thead, data, start, end, display) {
+                    $(thead).find('th').css({
+                        'background-color': '#333', // Estilo de fondo del encabezado
+                        'color': 'white', // Color del texto del encabezado
+                        'text-align': 'center' // Centrar el texto del encabezado
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 </asp:Content>
 

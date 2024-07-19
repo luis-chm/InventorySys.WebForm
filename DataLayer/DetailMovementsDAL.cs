@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace DataLayer
 {
@@ -17,7 +18,8 @@ namespace DataLayer
 
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_DetailMovements", conn);
+                SqlCommand cmd = new SqlCommand("SELECT dm.DetailMovID,dm.MaterialTransactionID,dm.DetInitBalance,dm.DetCantEntry,dm.DetCantExit,dm.DetCurrentBalance,mt.MaterialTransactionDate,mt.MaterialTransactionType ,m.MaterialCode,m.MaterialDescription " +
+                    "FROM [dbo].[tbl_DetailMovements] dm  INNER JOIN [dbo].[tbl_MaterialTransactions] mt ON dm.MaterialTransactionID = mt.MaterialTransactionID INNER JOIN [dbo].[tbl_Materials] m  ON mt.MaterialID = m.MaterialID", conn);
                 cmd.CommandType = CommandType.Text;
                 try
                 {
@@ -30,10 +32,21 @@ namespace DataLayer
                             {
                                 DetailMovID = Convert.ToInt32(dr["DetailMovID"]),
                                 MaterialTransactionID =Convert.ToInt32( dr["MaterialTransactionID"]),
+                                MaterialTransaction = new MaterialTransactions 
+                                {
+                                    MaterialTransactionDate = Convert.ToDateTime(dr["MaterialTransactionDate"]),
+                                    MaterialTransactionType = dr["MaterialTransactionType"].ToString(),
+                                    Material = new Materials 
+                                    { 
+                                        MaterialCode = dr["MaterialCode"].ToString(),
+                                        MaterialDescription = dr["MaterialDescription"].ToString()
+                                    }
+                                },
                                 DetInitBalance = Convert.ToDouble(dr["DetInitBalance"]),
                                 DetCantEntry = Convert.ToDouble(dr["DetCantEntry"]),
                                 DetCantExit = Convert.ToDouble(dr["DetCantExit"]),
-                                DetCurrentBalance = Convert.ToDouble(dr["DetCurrentBalance"])
+                                DetCurrentBalance = Convert.ToDouble(dr["DetCurrentBalance"]
+                                )
                             });
                         }
                     }

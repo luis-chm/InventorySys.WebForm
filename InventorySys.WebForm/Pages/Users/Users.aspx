@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <asp:LinkButton runat="server" OnClick="btnNuevo_Click" CssClass="btn btn-success">
                     <i class="bi bi-plus-lg"></i> Nuevo
-                </asp:LinkButton>
+                        </asp:LinkButton>
                     </div>
                 </div>
                 <br />
@@ -48,17 +48,21 @@
                                         <label class="password"><%# new string('*', Eval("UserEncryptedPassword").ToString().Length) %></label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="RoleID" HeaderText="ID de Rol" />
+                                <asp:TemplateField HeaderText="Nombre de Rol">
+                                    <ItemTemplate>
+                                        <%# Eval("Role.RoleName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
                                         <div class="d-flex justify-content-center">
-                                        <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
-                                            CommandArgument='<% #Eval("UserID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
+                                            <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
+                                                CommandArgument='<% #Eval("UserID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
 
                                         <asp:LinkButton runat="server" OnClick="btnEliminar_Click" CssClass="btn btn-sm btn-danger"
                                             OnClientClick="return confirm('¿Deseas eliminar al usuario?')"
                                             CommandArgument='<% #Eval("UserID") %>'><i class="bi bi-trash3"></i> Eliminar</asp:LinkButton>&nbsp;
-                                      </div>
+                                        </div>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -68,21 +72,21 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.dataTables1').DataTable({
-            language: {
-                url: '../../Content/dist/js/es-MX.json'
-            },
-            stripeClasses: [], // Clases de estilos para filas alternas
-            headerCallback: function (thead, data, start, end, display) {
-                $(thead).find('th').css({
-                    'background-color': '#333', // Estilo de fondo del encabezado
-                    'color': 'white', // Color del texto del encabezado
-                    'text-align': 'center' // Centrar el texto del encabezado
-                });
-            }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTables1').DataTable({
+                language: {
+                    url: '../../Content/dist/js/es-MX.json'
+                },
+                stripeClasses: [], // Clases de estilos para filas alternas
+                headerCallback: function (thead, data, start, end, display) {
+                    $(thead).find('th').css({
+                        'background-color': '#333', // Estilo de fondo del encabezado
+                        'color': 'white', // Color del texto del encabezado
+                        'text-align': 'center' // Centrar el texto del encabezado
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 </asp:Content>

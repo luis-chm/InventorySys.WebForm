@@ -17,7 +17,8 @@ namespace DataLayer
 
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_MaterialTransactions", conn);
+                SqlCommand cmd = new SqlCommand("SELECT mt.MaterialTransactionID,mt.MaterialTransactionType,mt.MaterialTransactionQuantity,mt.MaterialTransactionDate,u.UserID,u.UserName,m.MaterialID,m.MaterialDescription,m.MaterialCode " +
+                    " FROM [dbo].[tbl_MaterialTransactions] mt INNER JOIN [dbo].[tbl_Users] u ON mt.UserID = u.UserID INNER JOIN [dbo].[tbl_Materials] m ON mt.MaterialID = m.MaterialID", conn);
                 cmd.CommandType = CommandType.Text;
                 try
                 {
@@ -33,7 +34,9 @@ namespace DataLayer
                                 MaterialTransactionQuantity =Double.Parse(dr["MaterialTransactionQuantity"].ToString()),
                                 MaterialTransactionDate = DateTime.Parse(dr["MaterialTransactionDate"].ToString()),
                                 UserID = Convert.ToInt32(dr["UserID"]),
+                                User = new Users { UserName = dr["UserName"].ToString() },
                                 MaterialID = Convert.ToInt32(dr["MaterialID"]),
+                                Material = new Materials { MaterialDescription = dr["MaterialDescription"].ToString(),MaterialCode= dr["MaterialCode"].ToString() },
                             });
                         }
                     }

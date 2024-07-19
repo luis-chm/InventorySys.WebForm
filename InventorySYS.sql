@@ -344,9 +344,23 @@ ALTER TABLE [dbo].[tbl_MaterialTransactions]
 ADD CONSTRAINT FK_MaterialID
 FOREIGN KEY (MaterialID) REFERENCES [dbo].[tbl_Materials](MaterialID);
 ------------------------------------------------------
+USE [InventorySYS]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GestionarMaterialTransactions]    Script Date: 19/7/2024 17:09:23 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
 -- Procedimientos almacenados tabla MaterialTransactions
 
-ALTER PROCEDURE [dbo].[GestionarMaterialTransactions]
+CREATE PROCEDURE [dbo].[GestionarMaterialTransactions]
     @accion NVARCHAR(10),
     @MaterialTransactionID INT = NULL,
     @MaterialTransactionType VARCHAR(50) = NULL,
@@ -357,6 +371,26 @@ ALTER PROCEDURE [dbo].[GestionarMaterialTransactions]
 
 AS
 BEGIN
+
+    DECLARE @Last_MaterialTransactionID INT = NULL,
+    @DetInitBalance DECIMAL(18,2) = 0.00,
+    @DetCantEntry DECIMAL(18,2)  = 0.00,
+	@DetCantExit DECIMAL(18,2)  = 0.00,
+    @DetCurrentBalance DECIMAL(18,2)  = 0.00;
+
+	SELECT TOP 1 @DetInitBalance = MaterialStock FROM [dbo].[tbl_Materials] WHERE [MaterialID] = @MaterialID;
+
+	IF @MaterialTransactionType = 'Ingreso'
+	BEGIN
+	  SELECT @DetCantEntry = @MaterialTransactionQuantity;
+	  SELECT @DetCurrentBalance = @DetInitBalance + @DetCantEntry;
+	END
+	ELSE IF @MaterialTransactionType = 'Retiro'
+	BEGIN
+	  SELECT @DetCantExit = @MaterialTransactionQuantity;
+	  SELECT @DetCurrentBalance = @DetInitBalance - @DetCantExit;
+	END
+
     IF @accion = 'agregar'
     BEGIN
        INSERT INTO [dbo].[tbl_MaterialTransactions]
@@ -371,10 +405,32 @@ BEGIN
            ,@MaterialTransactionDate
            ,@UserID
 		   ,@MaterialID)
+
+	-------Inserta los detalles de los movimientos calculados-----------------------------------
+	SELECT TOP 1 @Last_MaterialTransactionID = MaterialTransactionID FROM [dbo].[tbl_MaterialTransactions] ORDER BY MaterialTransactionID DESC;
+	INSERT INTO [dbo].[tbl_DetailMovements]
+           ([MaterialTransactionID]
+           ,[DetInitBalance]
+           ,[DetCantEntry]
+           ,[DetCantExit]
+           ,[DetCurrentBalance])
+     VALUES
+           (@Last_MaterialTransactionID
+           ,@DetInitBalance
+           ,@DetCantEntry
+           ,@DetCantExit
+           ,@DetCurrentBalance)	
+	-----------------Actualiza el stock en la tabla de Materiales---------------------------------------------------------
+	UPDATE [dbo].[tbl_Materials]
+	SET MaterialStock = @DetCurrentBalance
+	WHERE [MaterialID] = @MaterialID;
     END
+	-------------------------------------------------------------------------------
     ELSE IF @accion = 'borrar'
     BEGIN
+		DELETE FROM  [dbo].[tbl_DetailMovements] WHERE MaterialTransactionID = @MaterialTransactionID;
         DELETE FROM  [dbo].[tbl_MaterialTransactions] WHERE MaterialTransactionID = @MaterialTransactionID;
+
     END
     ELSE IF @accion = 'modificar'
     BEGIN
@@ -385,6 +441,18 @@ BEGIN
 			UserID = @UserID,
 			MaterialID = @MaterialID
         WHERE MaterialTransactionID = @MaterialTransactionID;
+	-------Actualiza los detalles de los movimientos calculados-----------------------------------
+	UPDATE [dbo].[tbl_DetailMovements]
+	SET [DetInitBalance] = @DetInitBalance
+      ,[DetCantEntry] = @DetCantEntry
+      ,[DetCantExit] = @DetCantExit
+      ,[DetCurrentBalance] = @DetCurrentBalance
+	WHERE MaterialTransactionID = @MaterialTransactionID;
+	-----------------Actualiza el stock en la tabla de Materiales---------------------------------------------------------
+	UPDATE [dbo].[tbl_Materials]
+	SET MaterialStock = @DetCurrentBalance
+	WHERE [MaterialID] = @MaterialID;
+	  -----------------------------------------------
     END
     ELSE IF @accion = 'consultar'
     BEGIN
@@ -402,6 +470,8 @@ BEGIN
         SELECT 'Acción no válida';
     END
 END;
+GO
+
 
 
 

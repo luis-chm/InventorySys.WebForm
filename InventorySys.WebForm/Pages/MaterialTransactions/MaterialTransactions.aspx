@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <asp:LinkButton runat="server" OnClick="btnNuevo_Click" CssClass="btn btn-success">
                     <i class="bi bi-plus-lg"></i> Nuevo
-                </asp:LinkButton>
+                        </asp:LinkButton>
                     </div>
                 </div>
                 <br />
@@ -44,18 +44,31 @@
                                 <asp:BoundField DataField="MaterialTransactionType" HeaderText="Tipo de transaccion" />
                                 <asp:BoundField DataField="MaterialTransactionQuantity" HeaderText="Cantidad de material" />
                                 <asp:BoundField DataField="MaterialTransactionDate" HeaderText="Fecha de la transaccion" />
-                                <asp:BoundField DataField="UserID" HeaderText="ID del Usuario" />
-                                <asp:BoundField DataField="MaterialID" HeaderText="ID del Material" />
+                                <asp:TemplateField HeaderText="Nombre de Usuario">
+                                    <ItemTemplate>
+                                        <%# Eval("User.UserName") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Codigo de Material">
+                                    <ItemTemplate>
+                                        <%# Eval("Material.MaterialCode") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Descripcion del Material">
+                                    <ItemTemplate>
+                                        <%# Eval("Material.MaterialDescription") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
                                         <div class="d-flex justify-content-center">
-                                        <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
-                                            CommandArgument='<% #Eval("MaterialTransactionID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
+                                            <asp:LinkButton runat="server" OnClick="btnEditar_Click" CssClass="btn btn-sm btn-primary"
+                                                CommandArgument='<% #Eval("MaterialTransactionID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
 
                                         <asp:LinkButton runat="server" OnClick="btnEliminar_Click" CssClass="btn btn-sm btn-danger"
                                             OnClientClick="return confirm('¿Deseas eliminar la transaccion?')"
                                             CommandArgument='<% #Eval("MaterialTransactionID") %>'><i class="bi bi-trash3"></i> Eliminar</asp:LinkButton>&nbsp;
-                                      </div>
+                                        </div>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -65,21 +78,21 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.dataTables1').DataTable({
-            language: {
-                url: '../../Content/dist/js/es-MX.json'
-            },
-            stripeClasses: [], // Clases de estilos para filas alternas
-            headerCallback: function (thead, data, start, end, display) {
-                $(thead).find('th').css({
-                    'background-color': '#333', // Estilo de fondo del encabezado
-                    'color': 'white', // Color del texto del encabezado
-                    'text-align': 'center' // Centrar el texto del encabezado
-                });
-            }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTables1').DataTable({
+                language: {
+                    url: '../../Content/dist/js/es-MX.json'
+                },
+                stripeClasses: [], // Clases de estilos para filas alternas
+                headerCallback: function (thead, data, start, end, display) {
+                    $(thead).find('th').css({
+                        'background-color': '#333', // Estilo de fondo del encabezado
+                        'color': 'white', // Color del texto del encabezado
+                        'text-align': 'center' // Centrar el texto del encabezado
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 </asp:Content>

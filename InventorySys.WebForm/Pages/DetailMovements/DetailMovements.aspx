@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Menu.Master"  AutoEventWireup="true" CodeBehind="DetailMovements.aspx.cs" Inherits="InventorySys.WebForm.Pages.DetailMovements.DetailMovements" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Menu.Master" AutoEventWireup="true" CodeBehind="DetailMovements.aspx.cs" Inherits="InventorySys.WebForm.Pages.DetailMovements.DetailMovements" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -33,12 +33,30 @@
                         <asp:GridView ID="gvDetailMovements" CssClass="table table-bordered dataTables1" runat="server" AutoGenerateColumns="False" class="table table-bordered">
 
                             <Columns>
-                                <asp:BoundField DataField="DetailMovID" HeaderText="ID de Movimiento" />
-                                <asp:BoundField DataField="MaterialTransactionID" HeaderText="ID de Transaccion" />
+                                <asp:TemplateField HeaderText="Codigo Material">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialTransaction.Material.MaterialCode") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Descripcion Material">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialTransaction.Material.MaterialDescription") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Fecha de transaccion">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialTransaction.MaterialTransactionDate") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Tipo de transaccion">
+                                    <ItemTemplate>
+                                        <%# Eval("MaterialTransaction.MaterialTransactionType") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="DetInitBalance" HeaderText="Cantidad Inicial" />
                                 <asp:BoundField DataField="DetCantEntry" HeaderText="Cantidad Ingresada" />
-                                 <asp:BoundField DataField="DetCantExit" HeaderText="Cantidad Retirada" />
-                                 <asp:BoundField DataField="DetCurrentBalance" HeaderText="Cantidad Actual" />
+                                <asp:BoundField DataField="DetCantExit" HeaderText="Cantidad Retirada" />
+                                <asp:BoundField DataField="DetCurrentBalance" HeaderText="Cantidad Actual" />
                             </Columns>
                         </asp:GridView>
                     </div>
@@ -46,21 +64,21 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.dataTables1').DataTable({
-            language: {
-                url: '../../Content/dist/js/es-MX.json'
-            },
-            stripeClasses: [], // Clases de estilos para filas alternas
-            headerCallback: function (thead, data, start, end, display) {
-                $(thead).find('th').css({
-                    'background-color': '#333', // Estilo de fondo del encabezado
-                    'color': 'white', // Color del texto del encabezado
-                    'text-align': 'center' // Centrar el texto del encabezado
-                });
-            }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTables1').DataTable({
+                language: {
+                    url: '../../Content/dist/js/es-MX.json'
+                },
+                stripeClasses: [], // Clases de estilos para filas alternas
+                headerCallback: function (thead, data, start, end, display) {
+                    $(thead).find('th').css({
+                        'background-color': '#333', // Estilo de fondo del encabezado
+                        'color': 'white', // Color del texto del encabezado
+                        'text-align': 'center' // Centrar el texto del encabezado
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 </asp:Content>

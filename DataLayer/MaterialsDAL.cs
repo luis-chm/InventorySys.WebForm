@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.SqlServer.Server;
 using System.Security.Policy;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace DataLayer
 {
@@ -20,7 +21,8 @@ namespace DataLayer
 
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_Materials", conn);
+                SqlCommand cmd = new SqlCommand("SELECT m.MaterialID ,m.MaterialCode ,m.MaterialDescription ,m.CollectionID ,c.CollectionName,m.FinitureID,f.FinitureName,m.FormatID,ft.FormatName,m.SiteID,s.SiteName,m.MaterialIMG ,m.MaterialReceivedDate ,m.MaterialStock,m.UserID,u.UserName " +
+                    "FROM [dbo].[tbl_Materials] m  INNER JOIN [dbo].[tbl_Collections] c ON c.CollectionID = m.CollectionID  INNER JOIN [dbo].[tbl_Finitures] f  ON f.FinitureID = m.FinitureID INNER JOIN [dbo].[tbl_Formats] ft ON ft.FormatID = m.FormatID  INNER JOIN [dbo].[tbl_Sites] s  ON s.SiteID = m.SiteID INNER JOIN [dbo].[tbl_Users] u ON u.UserID = m.UserID", conn);
                 cmd.CommandType = CommandType.Text;
                 try
                 {
@@ -35,11 +37,16 @@ namespace DataLayer
                                 MaterialCode = dr["MaterialCode"].ToString(),
                                 MaterialDescription = dr["MaterialDescription"].ToString(),
                                 CollectionID = Int32.Parse(dr["CollectionID"].ToString()),
+                                Collection = new Collections{ CollectionName = dr["CollectionName"].ToString() },
+                                User = new Users {UserName = dr["UserName"].ToString() },
                                 FinitureID = Int32.Parse(dr["FinitureID"].ToString()),
+                                Finiture = new Finitures { FinitureName = dr["FinitureName"].ToString() },
                                 FormatID = Int32.Parse(dr["FormatID"].ToString()),
-                                SiteID =    Int32.Parse(dr["SiteID"].ToString()),
+                                Format = new Formats { FormatName = dr["FormatName"].ToString() },
+                                SiteID = Int32.Parse(dr["SiteID"].ToString()),
+                                Site = new Sites { SiteName = dr["SiteName"].ToString() },
                                 MaterialIMG = dr["MaterialIMG"].ToString(),
-                                MaterialReceivedDate = DateTime.Parse( dr["MaterialReceivedDate"].ToString()),
+                                MaterialReceivedDate = DateTime.Parse(dr["MaterialReceivedDate"].ToString()),
                                 MaterialStock = Convert.ToDouble(dr["MaterialStock"].ToString()),
                                 UserID = Int32.Parse(dr["UserID"].ToString())
                             });
