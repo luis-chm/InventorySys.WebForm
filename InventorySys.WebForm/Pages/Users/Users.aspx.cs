@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EntityLayer;
 using BussinessLayer;
+using InventorySys.WebForm.Pages.Sites;
 
 namespace InventorySys.WebForm.Views.Users
 {
@@ -25,8 +26,15 @@ namespace InventorySys.WebForm.Views.Users
             gvUsers.DataBind();
 
             gvUsers.UseAccessibleHeader = true;
-            gvUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
-            gvUsers.FooterRow.TableSection= TableRowSection.TableFooter;
+            if (gvUsers.HeaderRow != null)
+            {
+                gvUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+
+            if (gvUsers.FooterRow != null)
+            {
+                gvUsers.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
         }
         private void Alertas(string mensaje)
         {

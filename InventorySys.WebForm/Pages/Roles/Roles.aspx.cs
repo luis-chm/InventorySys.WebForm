@@ -25,8 +25,15 @@ namespace InventorySys.WebForm.Pages.Roles
             gvRoles.DataBind();
 
             gvRoles.UseAccessibleHeader = true;
-            gvRoles.HeaderRow.TableSection = TableRowSection.TableHeader;
-            gvRoles.FooterRow.TableSection = TableRowSection.TableFooter;
+            if (gvRoles.HeaderRow != null)
+            {
+                gvRoles.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+
+            if (gvRoles.FooterRow != null)
+            {
+                gvRoles.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
         }
         private void Alertas(string mensaje)
         {

@@ -168,7 +168,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/Category" class="nav-link">
+                                            <a href="/Pages/Formats/Formats.aspx" class="nav-link">
                                                 <i class="nav-icon bi bi-textarea-resize"></i>
                                                 <p>Formats</p>
                                             </a>
@@ -197,13 +197,13 @@
                                 </a>
                                 <ul class="collapse" id="StockSubmenu">
                                     <li class="nav-item">
-                                        <a href="/Store" class="nav-link">
+                                        <a href="/Pages/Materials/Materials.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-palette"></i>
                                             <p>Materials</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="/MaterialTransactions" class="nav-link">
+                                        <a href="/Pages/MaterialTransactions/MaterialTransactions.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-receipt"></i>
                                             <p>
                                                 Material
@@ -213,7 +213,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="/DetailMovements" class="nav-link">
+                                        <a href="/Pages/DetailMovements/DetailMovements.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-arrows-move"></i>
                                             <p>Detail Movements</p>
                                         </a>

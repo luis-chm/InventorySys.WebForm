@@ -12,5 +12,6 @@ namespace EntityLayer
         public string CollectionName { get; set; }
         public string CollectionEffect { get; set; }
         public bool CollectionActive { get; set; }
+
     }
 }

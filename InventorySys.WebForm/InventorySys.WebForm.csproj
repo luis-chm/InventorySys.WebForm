@@ -18,8 +18,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -206,9 +206,15 @@
     <Content Include="Pages\Collections\Collections.aspx" />
     <Content Include="Pages\Collections\Create.aspx" />
     <Content Include="Pages\Collections\Edit.aspx" />
+    <Content Include="Pages\DetailMovements\Create.aspx" />
+    <Content Include="Pages\DetailMovements\DetailMovements.aspx" />
+    <Content Include="Pages\DetailMovements\Edit.aspx" />
     <Content Include="Pages\Finitures\Create.aspx" />
     <Content Include="Pages\Finitures\Edit.aspx" />
     <Content Include="Pages\Finitures\Finitures.aspx" />
+    <Content Include="Pages\Formats\Create.aspx" />
+    <Content Include="Pages\Formats\Edit.aspx" />
+    <Content Include="Pages\Formats\Formats.aspx" />
     <Content Include="Pages\Inicio.aspx" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
@@ -227,6 +233,12 @@
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="libman.json" />
+    <Content Include="Pages\Materials\Create.aspx" />
+    <Content Include="Pages\Materials\Edit.aspx" />
+    <Content Include="Pages\Materials\Materials.aspx" />
+    <Content Include="Pages\MaterialTransactions\Create.aspx" />
+    <Content Include="Pages\MaterialTransactions\Edit.aspx" />
+    <Content Include="Pages\MaterialTransactions\MaterialTransactions.aspx" />
     <Content Include="Pages\Menu.Master" />
     <Content Include="Content\dist\css\adminlte.css.map" />
     <Content Include="Content\dist\css\adminlte.min.css.map" />
@@ -302,6 +314,27 @@
     <Compile Include="Pages\Collections\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DetailMovements\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DetailMovements\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DetailMovements\DetailMovements.aspx.cs">
+      <DependentUpon>DetailMovements.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DetailMovements\DetailMovements.aspx.designer.cs">
+      <DependentUpon>DetailMovements.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DetailMovements\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DetailMovements\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Finitures\Create.aspx.cs">
       <DependentUpon>Create.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -323,12 +356,75 @@
     <Compile Include="Pages\Finitures\Finitures.aspx.designer.cs">
       <DependentUpon>Finitures.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Formats\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Formats\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Formats\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Formats\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Formats\Formats.aspx.cs">
+      <DependentUpon>Formats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Formats\Formats.aspx.designer.cs">
+      <DependentUpon>Formats.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Materials\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Materials\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Materials\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Materials\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Materials\Materials.aspx.cs">
+      <DependentUpon>Materials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Materials\Materials.aspx.designer.cs">
+      <DependentUpon>Materials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\MaterialTransactions.aspx.cs">
+      <DependentUpon>MaterialTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MaterialTransactions\MaterialTransactions.aspx.designer.cs">
+      <DependentUpon>MaterialTransactions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Menu.Master.cs">
       <DependentUpon>Menu.Master</DependentUpon>
@@ -411,10 +507,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Pages\DetailMovements\" />
-    <Folder Include="Pages\Formats\" />
-    <Folder Include="Pages\Materials\" />
-    <Folder Include="Pages\MaterialTransactions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

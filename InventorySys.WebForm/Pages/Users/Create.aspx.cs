@@ -80,7 +80,7 @@ namespace InventorySys.WebForm.Pages.Users
 
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
                 throw;
             }
         }

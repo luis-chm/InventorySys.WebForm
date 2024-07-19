@@ -42,7 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections.cs" />
+    <Compile Include="DetailMovements.cs" />
     <Compile Include="Finitures.cs" />
+    <Compile Include="Formats.cs" />
+    <Compile Include="Materials.cs" />
+    <Compile Include="MaterialTransactions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs" />
     <Compile Include="Sites.cs" />

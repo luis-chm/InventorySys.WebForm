@@ -44,7 +44,11 @@
   <ItemGroup>
     <Compile Include="CollectionsDAL.cs" />
     <Compile Include="DBConn.cs" />
+    <Compile Include="DetailMovementsDAL.cs" />
     <Compile Include="FinituresDAL.cs" />
+    <Compile Include="FormatsDAL.cs" />
+    <Compile Include="MaterialsDAL.cs" />
+    <Compile Include="MaterialTransactionsDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesDAL.cs" />
     <Compile Include="SitesDAL.cs" />

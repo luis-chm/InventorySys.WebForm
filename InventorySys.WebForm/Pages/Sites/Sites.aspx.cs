@@ -19,12 +19,22 @@ namespace InventorySys.WebForm.Pages.Sites
         {
 
             List<EntityLayer.Sites> lista = sitesBL.ListSites();
-            gvSites.DataSource = lista;
-            gvSites.DataBind();
 
-            gvSites.UseAccessibleHeader = true;
-            gvSites.HeaderRow.TableSection = TableRowSection.TableHeader;
-            gvSites.FooterRow.TableSection = TableRowSection.TableFooter;
+                gvSites.DataSource = lista;
+                gvSites.DataBind();
+                gvSites.UseAccessibleHeader = true;
+            if (gvSites.HeaderRow != null)
+            {
+                gvSites.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+
+            if (gvSites.FooterRow != null)
+            {
+                gvSites.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
+
+
+
         }
         private void Alertas(string mensaje)
         {
