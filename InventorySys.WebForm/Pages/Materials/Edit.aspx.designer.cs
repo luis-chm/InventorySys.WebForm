@@ -78,13 +78,22 @@ namespace InventorySys.WebForm.Pages.Materials
         protected global::System.Web.UI.WebControls.DropDownList ddlUsers;
 
         /// <summary>
-        /// Control txtMaterialIMG.
+        /// Control fileUploadImage.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaterialIMG;
+        protected global::System.Web.UI.WebControls.FileUpload fileUploadImage;
+
+        /// <summary>
+        /// Control imgMaterialImage.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgMaterialImage;
 
         /// <summary>
         /// Control txtMaterialReceivedDate.

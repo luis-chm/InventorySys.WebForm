@@ -1,6 +1,7 @@
 ﻿using BussinessLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -91,7 +92,7 @@ namespace InventorySys.WebForm.Pages.Materials
                 string.IsNullOrWhiteSpace(ddlFinitures.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlFormats.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlSites.SelectedValue) ||
-                string.IsNullOrWhiteSpace(txtMaterialIMG.Text) ||
+                !fileUploadImage.HasFile ||
                 string.IsNullOrWhiteSpace(txtMaterialReceivedDate.Text) ||
                 string.IsNullOrWhiteSpace(txtMaterialStock.Text) ||
                 string.IsNullOrWhiteSpace(ddlUsers.SelectedValue) 
@@ -100,9 +101,35 @@ namespace InventorySys.WebForm.Pages.Materials
                 Alertas("Por favor, complete todos los campos.");
                 return;
             }
+            // Validar la extensión del archivo
+            string fileExtension = Path.GetExtension(fileUploadImage.FileName).ToLower();
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
 
-            try
+            if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
             {
+                Alertas("El archivo seleccionado no es una imagen válida.");
+                return;
+            }
+
+                try
+            {
+
+                string fileName = Path.GetFileName(fileUploadImage.PostedFile.FileName);
+
+                // Definir la ruta de destino en la carpeta del proyecto
+                string uploadPath = Server.MapPath("~/UploadedImages/");
+                string fullPath = Path.Combine(uploadPath, fileName);
+
+                // Crear la carpeta si no existe
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                // Guardar el archivo en la carpeta
+                fileUploadImage.SaveAs(fullPath);
+
+
                 EntityLayer.Materials Materials = new EntityLayer.Materials()
                 {
                     MaterialID = MaterialID,
@@ -112,7 +139,7 @@ namespace InventorySys.WebForm.Pages.Materials
                     Finiture = new EntityLayer.Finitures() { FinitureID = Convert.ToInt32(ddlFinitures.SelectedValue) },
                     Format = new EntityLayer.Formats() { FormatID = Convert.ToInt32(ddlFormats.SelectedValue) },
                     Site = new EntityLayer.Sites() { SiteID = Convert.ToInt32(ddlSites.SelectedValue) },
-                    MaterialIMG = txtMaterialIMG.Text,
+                    MaterialIMG = fileName,
                     MaterialReceivedDate = Convert.ToDateTime(txtMaterialReceivedDate.Text),
                     MaterialStock = Convert.ToDouble(txtMaterialStock.Text),
                     User = new EntityLayer.Users() { UserID = Convert.ToInt32(ddlUsers.SelectedValue) },

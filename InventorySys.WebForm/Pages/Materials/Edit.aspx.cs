@@ -1,8 +1,11 @@
 ﻿using BussinessLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,6 +14,7 @@ namespace InventorySys.WebForm.Pages.Materials
     public partial class Edit : System.Web.UI.Page
     {
         private static int MaterialID = 0;
+        private static string Old_MaterialIMG = string.Empty;
         MaterialsBL MaterialsBL = new MaterialsBL();
         CollectionsBL collectionsBL = new CollectionsBL();
         FinituresBL finituresBL = new FinituresBL();
@@ -28,6 +32,7 @@ namespace InventorySys.WebForm.Pages.Materials
                 CargarUsers();
                 CargarMaterial();
             }
+           
         }
         private void Alertas(string mensaje)
         {
@@ -104,7 +109,6 @@ namespace InventorySys.WebForm.Pages.Materials
             if (Request.QueryString["MaterialID"] != null)
             {
                 MaterialID = Convert.ToInt32(Request.QueryString["MaterialID"].ToString());
-
                 if (MaterialID != 0)
                 {
                     EntityLayer.Materials Materials = MaterialsBL.ObtenerMaterial(MaterialID);
@@ -114,10 +118,11 @@ namespace InventorySys.WebForm.Pages.Materials
                     CargarFinitures(Materials.CollectionID.ToString());
                     CargarFormats(Materials.CollectionID.ToString());
                     CargarSites(Materials.CollectionID.ToString());
-                    txtMaterialIMG.Text = Materials.MaterialIMG;
                     txtMaterialReceivedDate.Text = Materials.MaterialReceivedDate.ToString("yyyy-MM-dd");
                     txtMaterialStock.Text = Materials.MaterialStock.ToString();
                     CargarUsers(Materials.CollectionID.ToString());
+                    Old_MaterialIMG = Materials.MaterialIMG;
+                    imgMaterialImage.ImageUrl = "~/UploadedImages/" + Old_MaterialIMG;
                 }
                 else
                 {
@@ -133,7 +138,6 @@ namespace InventorySys.WebForm.Pages.Materials
                 string.IsNullOrWhiteSpace(ddlFinitures.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlFormats.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlSites.SelectedValue) ||
-                string.IsNullOrWhiteSpace(txtMaterialIMG.Text) ||
                 string.IsNullOrWhiteSpace(txtMaterialReceivedDate.Text) ||
                 string.IsNullOrWhiteSpace(txtMaterialStock.Text) ||
                 string.IsNullOrWhiteSpace(ddlUsers.SelectedValue)
@@ -142,8 +146,46 @@ namespace InventorySys.WebForm.Pages.Materials
                 Alertas("Por favor, complete todos los campos.");
                 return;
             }
+
             try
             {
+                 string MaterialIMG = string.Empty;
+                if (fileUploadImage.HasFile)
+                {
+                    // Validar la extensión del archivo
+                    string fileExtension = Path.GetExtension(fileUploadImage.FileName).ToLower();
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+
+                    if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
+                    {
+                        Alertas("El archivo seleccionado no es una imagen válida.");
+                        return;
+                    }
+                    string fileName = Path.GetFileName(fileUploadImage.PostedFile.FileName);
+
+                    // Definir la ruta de destino en la carpeta del proyecto
+                    string uploadPath = Server.MapPath("~/UploadedImages/");
+                    string fullPath = Path.Combine(uploadPath, fileName);
+
+                    // Crear la carpeta si no existe
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    // Guardar el archivo en la carpeta
+                    fileUploadImage.SaveAs(fullPath);
+                    MaterialIMG = fileName;
+                }
+                if (string.IsNullOrWhiteSpace(MaterialIMG))
+                {
+                    MaterialIMG = Old_MaterialIMG;
+                }
+                else {
+                    // elimina la vieja imagen de la carpeta de imagenes
+                    DeleteImage(Old_MaterialIMG);
+                }
+
                 EntityLayer.Materials Materials = new EntityLayer.Materials()
                 {
                     MaterialID = MaterialID,
@@ -153,7 +195,7 @@ namespace InventorySys.WebForm.Pages.Materials
                     Finiture = new EntityLayer.Finitures() { FinitureID = Convert.ToInt32(ddlFinitures.SelectedValue) },
                     Format = new EntityLayer.Formats() { FormatID = Convert.ToInt32(ddlFormats.SelectedValue) },
                     Site = new EntityLayer.Sites() { SiteID = Convert.ToInt32(ddlSites.SelectedValue) },
-                    MaterialIMG = txtMaterialIMG.Text,
+                    MaterialIMG = MaterialIMG,
                     MaterialReceivedDate = Convert.ToDateTime(txtMaterialReceivedDate.Text),
                     MaterialStock = Convert.ToDouble(txtMaterialStock.Text),
                     User = new EntityLayer.Users() { UserID = Convert.ToInt32(ddlUsers.SelectedValue) },
@@ -181,5 +223,26 @@ namespace InventorySys.WebForm.Pages.Materials
                 throw ex;
             }
         }
+        public static void DeleteImage(string fileName)
+        {
+            try
+            {
+                // Construir la ruta completa del archivo
+                string filePath = HttpContext.Current.Server.MapPath("~/UploadedImages/" + fileName);
+
+                // Verificar si el archivo existe
+                if (File.Exists(filePath))
+                {
+                    // Eliminar el archivo
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
     }
 }

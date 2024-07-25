@@ -87,8 +87,14 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <asp:Label runat="server" AssociatedControlID="txtMaterialIMG" CssClass="form-label">Imagen</asp:Label>
-                                <asp:TextBox runat="server" ID="txtMaterialIMG" CssClass="form-control" required="required" />
+                                <!-- Campo para subir un nuevo archivo -->
+                                <asp:Label runat="server" AssociatedControlID="fileUploadImage" CssClass="form-label">Imagen</asp:Label>
+                                <asp:FileUpload ID="fileUploadImage" runat="server" OnChange="onFileChange()" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <asp:Image ID="imgMaterialImage" runat="server" ImageUrl="~/UploadedImages/default.jpg" AlternateText="Descripción de la imagen" Width="100px" Height="100px" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -114,6 +120,38 @@
             </div>
         </div>
     </div>
+        <script type="text/javascript">
+            function onFileChange() {
+                var fileUpload = document.getElementById('<%= fileUploadImage.ClientID %>');
 
+            if (fileUpload.files.length > 0) {
+                var file = fileUpload.files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                fetch('FileUploadHandler.ashx', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Manejar la respuesta del servidor
+                    if (data.result === "success") {
+                        // Actualizar la imagen en la página
+                        document.getElementById('<%= imgMaterialImage.ClientID %>').src = data.imageUrl;
+                    } else {
+                        alert('Error: ' + data.result);
+                    }
+                })
+                       .catch(error => {
+                           // Manejar errores
+                           alert('Error:', error);
+                       });
+               }
+           }
+        </script>
 </asp:Content>
 

@@ -1,6 +1,7 @@
 ﻿using BussinessLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -51,10 +52,42 @@ namespace InventorySys.WebForm.Pages.Materials
         {
             LinkButton btn = (LinkButton)sender;
             string MaterialID = btn.CommandArgument;
-            int respuesta = MaterialsBL.EliminarMaterials(Convert.ToInt32(MaterialID));
-            if (respuesta > 0)
-                Alertas("El usuario ha sido eliminado con éxito");
-            MostrarMaterials();
+            EntityLayer.Materials material = MaterialsBL.ObtenerMaterial(Convert.ToInt32(MaterialID));
+            if (material != null)
+            {
+                int respuesta = MaterialsBL.EliminarMaterials(material.MaterialID);
+                DeleteImage(material.MaterialIMG);
+                if (respuesta > 0)
+                {
+                    Alertas("El material ha sido eliminado con éxito");
+                    MostrarMaterials();
+                }
+                else
+                {
+                    Alertas("Ha ocurrido un error al borrar el registro");
+                }
+            }
         }
+        public static void DeleteImage(string fileName)
+        {
+            try
+            {
+                // Construir la ruta completa del archivo
+                string filePath = HttpContext.Current.Server.MapPath("~/UploadedImages/" + fileName);
+
+                // Verificar si el archivo existe
+                if (File.Exists(filePath))
+                {
+                    // Eliminar el archivo
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
     }
 }

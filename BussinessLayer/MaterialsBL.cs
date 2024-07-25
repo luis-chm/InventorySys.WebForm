@@ -23,11 +23,11 @@ namespace BussinessLayer
                 throw ex;
             }
         }
-        public Materials ObtenerMaterial(int CollectionID)
+        public Materials ObtenerMaterial(int MaterialID)
         {
             try
             {
-                return materialsDAL.ObtenerMaterial(CollectionID);
+                return materialsDAL.ObtenerMaterial(MaterialID);
             }
             catch (Exception ex)
             {
@@ -59,12 +59,12 @@ namespace BussinessLayer
                 throw ex;
             }
         }
-        public int EliminarMaterials(int CollectionID)
+        public int EliminarMaterials(int MaterialID)
         {
             try
             {
 
-                return materialsDAL.EliminarMaterials(CollectionID);
+                return materialsDAL.EliminarMaterials(MaterialID);
             }
             catch (Exception ex)
             {

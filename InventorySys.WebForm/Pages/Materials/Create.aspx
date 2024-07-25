@@ -88,20 +88,25 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <asp:Label runat="server" AssociatedControlID="txtMaterialIMG" CssClass="form-label">Imagen</asp:Label>
-                                <asp:TextBox runat="server" ID="txtMaterialIMG" CssClass="form-control" required="required" />
+                                <asp:Label runat="server" AssociatedControlID="fileUploadImage" CssClass="form-label" >Imagen</asp:Label>
+                                <asp:FileUpload ID="fileUploadImage" runat="server" OnChange="onFileChange()"  />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <asp:Image ID="imgMaterialImage" runat="server" ImageUrl="~/UploadedImages/default.jpg" AlternateText="Descripción de la imagen" Width="100px" Height="100px" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <asp:Label runat="server" AssociatedControlID="txtMaterialReceivedDate" CssClass="form-label">Fecha de arribo</asp:Label>
-                                <asp:TextBox runat="server" ID="txtMaterialReceivedDate" CssClass="form-control" required="required"  type="date" />
+                                <asp:TextBox runat="server" ID="txtMaterialReceivedDate" CssClass="form-control" required="required" type="date" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <asp:Label runat="server" AssociatedControlID="txtMaterialStock" CssClass="form-label">Stock</asp:Label>
-                                <asp:TextBox runat="server" ID="txtMaterialStock" CssClass="form-control" required="required"  type="number" step="0.01" />
+                                <asp:TextBox runat="server" ID="txtMaterialStock" CssClass="form-control" required="required" type="number" step="0.01" />
                             </div>
                         </div>
                         <div>
@@ -115,4 +120,37 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function onFileChange() {
+            var fileUpload = document.getElementById('<%= fileUploadImage.ClientID %>');
+
+              if (fileUpload.files.length > 0) {
+                  var file = fileUpload.files[0];
+                  var formData = new FormData();
+                  formData.append('file', file);
+
+                  fetch('FileUploadHandler.ashx', {
+                      method: 'POST',
+                      body: formData,
+                      headers: {
+                          'X-Requested-With': 'XMLHttpRequest'
+                      }
+                  })
+                      .then(response => response.json())
+                      .then(data => {
+                          // Manejar la respuesta del servidor
+                          if (data.result === "success") {
+                              // Actualizar la imagen en la página
+                              document.getElementById('<%= imgMaterialImage.ClientID %>').src = data.imageUrl;
+              } else {
+                  alert('Error: ' + data.result);
+              }
+          })
+                    .catch(error => {
+                        // Manejar errores
+                        alert('Error:', error);
+                    });
+            }
+        }
+    </script>
 </asp:Content>

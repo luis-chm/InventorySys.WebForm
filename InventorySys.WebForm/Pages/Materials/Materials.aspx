@@ -70,6 +70,15 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="MaterialIMG" HeaderText="Imagen" />
+                                <asp:TemplateField HeaderText="Imagen">
+                                    <ItemTemplate>
+                                        <asp:Image ID="imgProduct" runat="server"
+                                            ImageUrl='<%# ResolveUrl("~/UploadedImages/" + Eval("MaterialIMG").ToString()) %>'
+                                            Width="100px"
+                                            Height="100px"
+                                            AlternateText="Imagen no disponible" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Fecha de ingreso">
                                     <ItemTemplate>
                                         <%# Eval("MaterialReceivedDate", "{0:yyyy-MM-dd}") %>
