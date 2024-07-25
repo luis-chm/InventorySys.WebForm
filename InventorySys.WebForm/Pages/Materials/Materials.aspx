@@ -69,7 +69,6 @@
                                         <%# Eval("User.UserName") %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="MaterialIMG" HeaderText="Imagen" />
                                 <asp:TemplateField HeaderText="Imagen">
                                     <ItemTemplate>
                                         <asp:Image ID="imgProduct" runat="server"
