@@ -72,22 +72,16 @@ namespace InventorySys.WebForm.Pages.Materials
         {
             try
             {
-                // Construir la ruta completa del archivo
                 string filePath = HttpContext.Current.Server.MapPath("~/UploadedImages/" + fileName);
-
-                // Verificar si el archivo existe
                 if (File.Exists(filePath))
                 {
-                    // Eliminar el archivo
                     File.Delete(filePath);
                 }
             }
             catch (Exception ex)
             {
-                // Manejar excepciones
                 Console.WriteLine(ex.ToString());
             }
         }
-
     }
 }

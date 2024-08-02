@@ -14,7 +14,7 @@
     <link href="../../Content/dist/css/styleslogin.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-primary">
+<body class="bg-primary" style="background-color: #41464b !important;">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="#"></a>
-                                            <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                                            <asp:Button ID="Button1" class="btn btn-secondary" runat="server" Text="Login" OnClick="btnLogin_Click" />
                                         </div>
                                     </form>
                                 </div>

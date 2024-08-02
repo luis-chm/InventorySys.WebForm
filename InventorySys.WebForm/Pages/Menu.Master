@@ -125,12 +125,6 @@
                                             <p>Roles</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="/Pages/Logs/Logs.aspx" class="nav-link">
-                                            <i class="nav-icon bi bi-files"></i>
-                                            <p>Logs</p>
-                                        </a>
-                                    </li>
                                 </ul>
                                 <li class="nav-item">
                                     <a href="#inventarioSubmenu" data-bs-toggle="collapse" class="nav-link">
@@ -210,11 +204,17 @@
                                 </a>
                                 <ul class="collapse" id="reportSubmenu">
                                     <li class="nav-item">
-                                        <a href="/Report/StoreStockReport" class="nav-link">
+                                        <a href="/Pages/Reportes/Reportes" class="nav-link">
                                             <i class="nav-icon bi bi-file-earmark-text"></i>
                                             <p>Reporte General</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="/Report/TransactionDetailReport" class="nav-link">
+                                            <i class="nav-icon bi bi-box-seam"></i>
+                                            <p>Reporte Stock</p>
+                                        </a>
+                                    </li>                                      
                                     <li class="nav-item">
                                         <a href="/Report/TransactionDetailReport" class="nav-link">
                                             <i class="nav-icon bi bi-box-seam"></i>
@@ -233,11 +233,8 @@
             <!--begin::App Main-->
             <main class="app-main">
                 <!--begin::App Content Header-->
-
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
-
-
             </main>
             <!--end::App Main-->
             <!--begin::Footer-->
