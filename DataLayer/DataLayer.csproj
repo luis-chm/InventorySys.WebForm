@@ -53,6 +53,7 @@
     <Compile Include="RolesDAL.cs" />
     <Compile Include="SitesDAL.cs" />
     <Compile Include="UsersDAL.cs" />
+    <Compile Include="UserServiceDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj">
