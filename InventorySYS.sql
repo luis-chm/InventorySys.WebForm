@@ -628,3 +628,53 @@ BEGIN
 END;
 GO
 
+
+-- Procedimientos almacenado validar login
+
+CREATE PROCEDURE ValidarUsuario
+    @UserEmail VARCHAR(100),
+    @UserEncryptedPassword VARCHAR(100)
+AS
+BEGIN
+    SELECT 
+        u.UserID,
+        u.UserName,
+        u.UserEmail,
+        u.UserEncryptedPassword,
+        r.RoleID,
+        r.RoleName
+    FROM 
+        tbl_Users u
+    INNER JOIN 
+        tbl_Roles r ON u.RoleID = r.RoleID
+    WHERE 
+        u.UserEmail = @UserEmail 
+        AND u.UserEncryptedPassword = @UserEncryptedPassword;
+END
+
+-- Procedimientos almacenado para reporte materiales por fechas
+
+CREATE PROCEDURE ReporteMaterialPorFechas
+    @fechaInicio VARCHAR(10),
+    @fechaFin VARCHAR(10)
+AS
+BEGIN
+    SET DATEFORMAT dmy;
+    SELECT m.MaterialID AS [ID Material],
+           m.MaterialCode AS [Codigo Material],
+           m.MaterialDescription AS [Descripcion Material],
+           c.CollectionName AS [Nombre Coleccion],
+           f.FinitureName AS [Nombre de Acabado],
+           fo.FormatName AS [Nombre Formato],
+           s.SiteName AS [Nombre de Sitio],
+           CONVERT(VARCHAR(10), m.MaterialReceivedDate, 103) AS [Fecha de Ingreso],
+           m.MaterialStock,
+           u.UserName AS [Nombre Usuario]
+    FROM tbl_Materials m
+    LEFT JOIN tbl_Collections c ON m.CollectionID = c.CollectionID
+    LEFT JOIN tbl_Finitures f ON m.FinitureID = f.FinitureID
+    LEFT JOIN tbl_Formats fo ON m.FormatID = fo.FormatID
+    LEFT JOIN tbl_Sites s ON m.SiteID = s.SiteID
+    LEFT JOIN tbl_Users u ON m.UserID = u.UserID
+    WHERE m.MaterialReceivedDate BETWEEN CONVERT(DATE, @fechaInicio, 103) AND CONVERT(DATE, @fechaFin, 103);
+END
