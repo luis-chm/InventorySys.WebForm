@@ -44,7 +44,7 @@
                 <br />
                 <div class="row">
                     <div class="col-11">
-                        <asp:GridView ID="gvUsers" CssClass="table table-bordered dataTables1" runat="server" AutoGenerateColumns="False" >
+                        <asp:GridView ID="gvUsers" CssClass="table table-bordered dataTables1" runat="server" AutoGenerateColumns="False" class="table table-bordered">
                             <Columns>
                                 <asp:BoundField DataField="UserID" HeaderText="ID de Usuario" />
                                 <asp:BoundField DataField="UserName" HeaderText="Nombre de usuario" />
@@ -78,36 +78,21 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var table = $('.dataTables1').DataTable({
-                language: {
-                    url: '../../Content/dist/js/es-MX.json'
-                },
-                stripeClasses: [],
-                headerCallback: function (thead, data, start, end, display) {
-                    $(thead).find('th').css({
-                        'background-color': '#333',
-                        'color': 'white',
-                        'text-align': 'center'
-                    });
-                },
-                dom: "Bfrtip",
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Exportar Excel',
-                        filename: 'Reporte Usuarios',
-                        title: 'Lista de Usuarios',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3]
-                        }
-                    }
-                ]
-            });
-
-            // Aplica el estilo después de la inicialización
-            $('.buttons-excel').addClass('btn btn-info');
-        });
+ <script type="text/javascript">
+     $(document).ready(function () {
+         $('.dataTables1').DataTable({
+             language: {
+                 url: '../../Content/dist/js/es-MX.json'
+             },
+             stripeClasses: [], // Clases de estilos para filas alternas
+             headerCallback: function (thead, data, start, end, display) {
+                 $(thead).find('th').css({
+                     'background-color': '#333', // Estilo de fondo del encabezado
+                     'color': 'white', // Color del texto del encabezado
+                     'text-align': 'center' // Centrar el texto del encabezado
+                 });
+             }
+         });
+     });
     </script>
 </asp:Content>
