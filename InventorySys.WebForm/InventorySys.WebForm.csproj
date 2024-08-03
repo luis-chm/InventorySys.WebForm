@@ -324,7 +324,8 @@
     <Content Include="Content\dist\js\es-MX.json" />
     <Content Include="Pages\Materials\FileUploadHandler.ashx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
-    <Content Include="Pages\Reportes\Reportes.aspx" />
+    <Content Include="Pages\Reportes\ReporteMaterials.aspx" />
+    <Content Include="Pages\Reportes\ReporteTransactions.aspx" />
     <Content Include="Pages\Roles\Create.aspx" />
     <Content Include="Pages\Roles\Edit.aspx" />
     <Content Include="Pages\Roles\Roles.aspx" />
@@ -524,12 +525,19 @@
     <Compile Include="Pages\Menu.Master.designer.cs">
       <DependentUpon>Menu.Master</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Reportes\Reportes.aspx.cs">
-      <DependentUpon>Reportes.aspx</DependentUpon>
+    <Compile Include="Pages\Reportes\ReporteMaterials.aspx.cs">
+      <DependentUpon>ReporteMaterials.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Reportes\Reportes.aspx.designer.cs">
-      <DependentUpon>Reportes.aspx</DependentUpon>
+    <Compile Include="Pages\Reportes\ReporteMaterials.aspx.designer.cs">
+      <DependentUpon>ReporteMaterials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reportes\ReporteTransactions.aspx.cs">
+      <DependentUpon>ReporteTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reportes\ReporteTransactions.aspx.designer.cs">
+      <DependentUpon>ReporteTransactions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Roles\Create.aspx.cs">
       <DependentUpon>Create.aspx</DependentUpon>

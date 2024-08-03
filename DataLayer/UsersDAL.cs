@@ -45,7 +45,7 @@ namespace DataLayer
                 catch (Exception ex)
                 {
 
-                    throw ex;
+                    throw new Exception("Error", ex);
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace DataLayer
                 catch (Exception ex)
                 {
 
-                    throw ex;
+                    throw new Exception("Error", ex);
                 }
                 finally 
                 { 
@@ -109,7 +109,7 @@ namespace DataLayer
                 catch (Exception ex)
                 {
 
-                    throw ex;
+                    throw new Exception("Error", ex);
                 }
                 finally
                 {
@@ -142,7 +142,7 @@ namespace DataLayer
                 catch (Exception ex)
                 {
 
-                    throw ex;
+                    throw new Exception("Error", ex);
                 }
                 finally
                 {
@@ -171,7 +171,7 @@ namespace DataLayer
                 catch (Exception ex)
                 {
 
-                    throw ex;
+                    throw new Exception("Error", ex);
                 }
                 finally
                 {

@@ -11,8 +11,17 @@ namespace InventorySys.WebForm.Pages.Reportes
 {
 
 
-    public partial class Reportes
+    public partial class ReporteMaterials1
     {
+
+        /// <summary>
+        /// btnReporteGeneral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReporteGeneral;
 
         /// <summary>
         /// txtFechaInicio control.
