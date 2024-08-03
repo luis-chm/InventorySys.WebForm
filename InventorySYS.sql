@@ -652,13 +652,39 @@ BEGIN
         AND u.UserEncryptedPassword = @UserEncryptedPassword;
 END
 
--- Procedimientos almacenado para reporte materiales por fechas
+-- Procedimientos almacenado para reporte materiales por fecha
 
-CREATE PROCEDURE ReporteMaterialPorFechas
+CREATE PROCEDURE ReporteMaterialesByDate
     @fechaInicio VARCHAR(10),
     @fechaFin VARCHAR(10)
 AS
 BEGIN
+    SET DATEFORMAT dmy;
+        SELECT m.MaterialID AS [ID Material],
+               m.MaterialCode AS [Codigo Material],
+               m.MaterialDescription AS [Descripcion Material],
+               c.CollectionName AS [Nombre Coleccion],
+               f.FinitureName AS [Nombre de Acabado],
+               fo.FormatName AS [Nombre Formato],
+               s.SiteName AS [Nombre de Sitio],
+               CONVERT(VARCHAR(10), m.MaterialReceivedDate, 103) AS [Fecha de Ingreso],
+               m.MaterialStock,
+               u.UserName AS [Nombre Usuario]
+        FROM tbl_Materials m
+        LEFT JOIN tbl_Collections c ON m.CollectionID = c.CollectionID
+        LEFT JOIN tbl_Finitures f ON m.FinitureID = f.FinitureID
+        LEFT JOIN tbl_Formats fo ON m.FormatID = fo.FormatID
+        LEFT JOIN tbl_Sites s ON m.SiteID = s.SiteID
+        LEFT JOIN tbl_Users u ON m.UserID = u.UserID
+        WHERE m.MaterialReceivedDate BETWEEN CONVERT(DATE, @fechaInicio, 103) AND CONVERT(DATE, @fechaFin, 103);
+END;
+
+-- Procedimientos almacenado para reporte materiales
+
+CREATE PROCEDURE ReporteMaterialesGeneral
+AS
+BEGIN
+
     SET DATEFORMAT dmy;
     SELECT m.MaterialID AS [ID Material],
            m.MaterialCode AS [Codigo Material],
@@ -676,5 +702,74 @@ BEGIN
     LEFT JOIN tbl_Formats fo ON m.FormatID = fo.FormatID
     LEFT JOIN tbl_Sites s ON m.SiteID = s.SiteID
     LEFT JOIN tbl_Users u ON m.UserID = u.UserID
-    WHERE m.MaterialReceivedDate BETWEEN CONVERT(DATE, @fechaInicio, 103) AND CONVERT(DATE, @fechaFin, 103);
 END
+
+-- Procedimientos almacenado para reporte materiales transacciones
+
+CREATE PROCEDURE ReporteMaterialTransactions
+AS
+BEGIN
+    -- Configura el formato de fecha
+    SET DATEFORMAT dmy;
+
+    -- Selecciona los datos deseados
+    SELECT
+        dm.MaterialTransactionID AS [ID Transacción Material],
+        u.UserName AS [Nombre Usuario],
+        mt.MaterialTransactionType AS [Tipo Transacción],
+        m.MaterialCode AS [Código Material],
+        m.MaterialDescription AS [Descripción Material],
+        dm.DetInitBalance AS [Saldo Inicial],
+        dm.DetCantEntry AS [Cantidad Entrada],
+        dm.DetCantExit AS [Cantidad Salida],
+        dm.DetCurrentBalance AS [Saldo Actual],
+        mt.MaterialTransactionDate AS [Fecha Transacción]
+    FROM 
+        [dbo].[tbl_DetailMovements] dm
+    INNER JOIN 
+        [dbo].[tbl_MaterialTransactions] mt 
+        ON dm.MaterialTransactionID = mt.MaterialTransactionID
+    INNER JOIN 
+        [dbo].[tbl_Materials] m 
+        ON mt.MaterialID = m.MaterialID
+    INNER JOIN 
+        [dbo].[tbl_Users] u 
+        ON mt.UserID = u.UserID;
+END;
+
+-- Procedimientos almacenado para reporte materiales transacciones por fecha
+
+CREATE PROCEDURE ReporteMaterialTransactionsByDate
+    @fechaInicio VARCHAR(10),
+    @fechaFin VARCHAR(10)
+AS
+BEGIN
+    -- Configura el formato de fecha
+    SET DATEFORMAT dmy;
+
+    -- Selecciona los datos deseados con un rango de fechas
+    SELECT
+        dm.MaterialTransactionID AS [ID Transacción Material],
+        u.UserName AS [Nombre Usuario],
+        mt.MaterialTransactionType AS [Tipo Transacción],
+        m.MaterialCode AS [Código Material],
+        m.MaterialDescription AS [Descripción Material],
+        dm.DetInitBalance AS [Saldo Inicial],
+        dm.DetCantEntry AS [Cantidad Entrada],
+        dm.DetCantExit AS [Cantidad Salida],
+        dm.DetCurrentBalance AS [Saldo Actual],
+        mt.MaterialTransactionDate AS [Fecha Transacción]
+    FROM 
+        [dbo].[tbl_DetailMovements] dm
+    INNER JOIN 
+        [dbo].[tbl_MaterialTransactions] mt 
+        ON dm.MaterialTransactionID = mt.MaterialTransactionID
+    INNER JOIN 
+        [dbo].[tbl_Materials] m 
+        ON mt.MaterialID = m.MaterialID
+    INNER JOIN 
+        [dbo].[tbl_Users] u 
+        ON mt.UserID = u.UserID
+    WHERE 
+        mt.MaterialTransactionDate BETWEEN CONVERT(DATE, @fechaInicio, 103) AND CONVERT(DATE, @fechaFin, 103);
+END;
