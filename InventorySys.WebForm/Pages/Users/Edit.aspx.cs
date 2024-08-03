@@ -28,7 +28,7 @@ namespace InventorySys.WebForm.Pages.Users
         }
         protected void CargarRoles(string RoleID = "")
         {
-            List<EntityLayer.Roles> lista = rolesBL.ListRoles();
+            List<EntityLayer.Roles> lista = rolesBL.ListRolesActivos();
 
             ddlRoles.DataTextField = "RoleName";
             ddlRoles.DataValueField = "RoleID";
@@ -99,7 +99,7 @@ namespace InventorySys.WebForm.Pages.Users
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
     }

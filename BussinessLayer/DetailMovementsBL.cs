@@ -20,7 +20,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public DetailMovements ObtenerDetailMovement(int DetailMovementID)
@@ -32,7 +32,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int CrearDetailMovements(DetailMovements DetailMovements)
@@ -44,7 +44,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EditarDetailMovements(DetailMovements DetailMovements)
@@ -56,7 +56,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EliminarDetailMovements(int DetailMovementID)
@@ -69,7 +69,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
     }

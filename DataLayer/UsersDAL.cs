@@ -180,6 +180,5 @@ namespace DataLayer
                 return result;
             }
         }
-
     }//fin clase DAL
 }//fin namesapce
