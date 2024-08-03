@@ -54,8 +54,8 @@
                     <!--begin::Start Navbar Links-->
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"><i class="bi bi-list"></i></a></li>
-                        <li class="nav-item d-none d-md-block"><a href="/Pages/Inicio" class="nav-link">Home</a> </li>
-                        <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a> </li>
+                        <li class="nav-item d-none d-md-block"><a href="#" </li>
+                        <li class="nav-item d-none d-md-block"><a href="#" </li>
                     </ul>
                     <!--end::Start Navbar Links-->
                     <!--begin::End Navbar Links-->
@@ -101,10 +101,10 @@
                         <!--begin::Sidebar Menu-->
                         <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="#" data-bs-toggle="collapse" class="nav-link">
-                                    <i class="nav-icon bi bi-speedometer"></i>
+                                <a href="/Pages/Inicio" class="nav-link">
+                                    <i class="nav-icon bi bi-house"></i>
                                     <p>
-                                        Dashboard
+                                        Inicio
                                     </p>
                                 </a>
                             </li>
