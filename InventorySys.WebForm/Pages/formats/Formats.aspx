@@ -57,7 +57,7 @@
                                                 CommandArgument='<% #Eval("FormatID") %>'><i class="bi bi-pencil-square"></i> Editar</asp:LinkButton>&nbsp;
 
                                         <asp:LinkButton runat="server" OnClick="btnEliminar_Click" CssClass="btn btn-sm btn-danger"
-                                            OnClientClick="return confirm('¿Deseas eliminar la coleccion?')"
+                                            OnClientClick="return confirm('¿Deseas eliminar el formato?')"
                                             CommandArgument='<% #Eval("FormatID") %>'><i class="bi bi-trash3"></i> Eliminar</asp:LinkButton>&nbsp;
                                         </div>
                                     </ItemTemplate>
