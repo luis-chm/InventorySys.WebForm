@@ -40,7 +40,17 @@
                         <asp:GridView ID="gvMaterialTransactions" CssClass="table table-bordered dataTables1" runat="server" AutoGenerateColumns="False" class="table table-bordered">
 
                             <Columns>
-                                <asp:BoundField DataField="MaterialTransactionID" HeaderText="ID de la transaccion" />
+                                <asp:BoundField DataField="MaterialTransactionID" HeaderText="ID de la transaccion" />                                                              
+                                <asp:TemplateField HeaderText="Codigo de Material">
+                                    <ItemTemplate>
+                                        <%# Eval("Material.MaterialCode") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Descripcion del Material">
+                                    <ItemTemplate>
+                                        <%# Eval("Material.MaterialDescription") %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="MaterialTransactionType" HeaderText="Tipo de transaccion" />
                                 <asp:BoundField DataField="MaterialTransactionQuantity" HeaderText="Cantidad de material" />
                                 <asp:TemplateField HeaderText="Fecha de la transaccion">
@@ -51,16 +61,6 @@
                                 <asp:TemplateField HeaderText="Nombre de Usuario">
                                     <ItemTemplate>
                                         <%# Eval("User.UserName") %>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Codigo de Material">
-                                    <ItemTemplate>
-                                        <%# Eval("Material.MaterialCode") %>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Descripcion del Material">
-                                    <ItemTemplate>
-                                        <%# Eval("Material.MaterialDescription") %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Acciones">

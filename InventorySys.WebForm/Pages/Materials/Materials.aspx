@@ -39,8 +39,7 @@
                     <div class="col-11">
                         <asp:GridView ID="gvMaterials" CssClass="table table-bordered dataTables1" runat="server" AutoGenerateColumns="False" class="table table-bordered">
 
-                            <Columns>
-                                <asp:BoundField DataField="MaterialID" HeaderText="ID del material" />
+                            <Columns>                              
                                 <asp:BoundField DataField="MaterialCode" HeaderText="Codigo del material" />
                                 <asp:BoundField DataField="MaterialDescription" HeaderText="Descripcion" />
                                 <asp:TemplateField HeaderText="Nombre de coleccion">

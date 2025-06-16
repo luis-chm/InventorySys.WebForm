@@ -20,7 +20,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public Users ObtenerUser(int UserID)
@@ -32,7 +32,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int CrearUser(Users user)
@@ -44,7 +44,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EditarUser(Users user)
@@ -56,7 +56,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EliminarUser(int UserID)
@@ -69,7 +69,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
     }

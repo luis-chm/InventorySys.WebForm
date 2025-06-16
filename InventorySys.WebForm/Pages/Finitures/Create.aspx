@@ -3,10 +3,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="app-content-header">
-    <!--begin::Container-->
+<!-- Encabezado -->
+<div class="app-content-header">
     <div class="container-fluid">
-        <!--begin::Row-->
         <div class="row">
             <div class="col-sm-6">
                 <h3 class="mb-0">Nuevo Acabado</h3>
@@ -17,52 +16,53 @@
                     <li class="breadcrumb-item active" aria-current="page">Crear Acabado</li>
                 </ol>
             </div>
-            <!-- /.Start col -->
         </div>
-        <!-- /.row (main row) -->
     </div>
-    <!--end::Container-->
 </div>
-<!--end::App Content-->
+
+<!-- Contenido -->
 <div class="container mt-5">
-    <div class="row justify-content-start">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="text-center"></h3>
-                </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <asp:Label runat="server" AssociatedControlID="txtFinitureCode" CssClass="form-label">Codigo de Acabado</asp:Label>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card p-4">
+                <div class="row">
+                    <!-- Formulario a la izquierda -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <asp:Label runat="server" AssociatedControlID="txtFinitureCode" CssClass="form-label">Código de Acabado</asp:Label>
                             <asp:TextBox runat="server" ID="txtFinitureCode" CssClass="form-control" required="required" />
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
+
+                        <div class="mb-3">
                             <asp:Label runat="server" AssociatedControlID="txtFinitureName" CssClass="form-label">Nombre de Acabado</asp:Label>
                             <asp:TextBox runat="server" ID="txtFinitureName" CssClass="form-control" required="required" />
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
+
+                        <div class="mb-3">
                             <asp:Label runat="server" AssociatedControlID="RadioButtonList1" CssClass="form-label">Estado de Acabado</asp:Label>
-                            <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+                            <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Vertical" CssClass="form-check">
                                 <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="Inactivo" Value="0"></asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
-                    </div>
-                    <div>
+
                         <hr />
-                        <asp:Button ID="btnAgregar" class="btn btn-primary" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
-                        &nbsp;&nbsp;&nbsp;
-                     <asp:LinkButton runat="server" PostBackUrl="~/Pages/Finitures/Finitures.aspx" CssClass="btn btn-warning">Volver</asp:LinkButton>
+
+                        <div class="d-flex gap-2">
+                            <asp:Button ID="btnAgregar" class="btn btn-primary" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
+                            <asp:LinkButton runat="server" PostBackUrl="~/Pages/Finitures/Finitures.aspx" CssClass="btn btn-warning">Volver</asp:LinkButton>
+                        </div>
+                    </div>
+
+                    <!-- Imagen decorativa a la derecha -->
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        <img src="../../Content/dist/assets/img/finitures.png" alt="Imagen Acabado" class="img-fluid rounded shadow" style="max-height: 300px;" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 </asp:Content>

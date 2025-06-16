@@ -20,7 +20,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public Materials ObtenerMaterial(int MaterialID)
@@ -32,7 +32,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int CrearMaterials(Materials Materials)
@@ -44,7 +44,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EditarMaterials(Materials Materials)
@@ -56,7 +56,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
         public int EliminarMaterials(int MaterialID)
@@ -69,7 +69,7 @@ namespace BussinessLayer
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("Error", ex);
             }
         }
     }

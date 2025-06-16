@@ -25,38 +25,41 @@
         <!--end::Container-->
     </div>
     <!--end::App Content-->
-    <div class="container mt-5">
-        <div class="row justify-content-start">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center"></h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <asp:Label runat="server" AssociatedControlID="txtRoleName" CssClass="form-label">Nombre de Rol</asp:Label>
-                                <asp:TextBox runat="server" ID="txtRoleName" CssClass="form-control" required="required" />
-                            </div>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card p-4">
+                <div class="row">
+                    <!-- Formulario a la izquierda -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="txtRoleName" class="form-label">Nombre de Rol</label>
+                            <asp:TextBox runat="server" ID="txtRoleName" CssClass="form-control" required="required" />
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <asp:Label runat="server" AssociatedControlID="RadioButtonList1" CssClass="form-label">Estado de Rol</asp:Label>
-                                <asp:RadioButtonList ID="RadioButtonList1" runat="server">
-                                    <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="Inactivo" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estado de Rol</label><br />
+                            <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Vertical" CssClass="form-check">
+                                <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Inactivo" Value="0"></asp:ListItem>
+                            </asp:RadioButtonList>
                         </div>
-                        <div>
-                            <hr />
+
+                        <hr />
+
+                        <div class="d-flex gap-2">
                             <asp:Button ID="btnAgregar" class="btn btn-primary" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
-                            &nbsp;&nbsp;&nbsp;
-                        <asp:LinkButton runat="server" PostBackUrl="~/Pages/Roles/Roles.aspx" CssClass="btn btn-warning">Volver</asp:LinkButton>
+                            <asp:LinkButton runat="server" PostBackUrl="~/Pages/Roles/Roles.aspx" CssClass="btn btn-warning">Volver</asp:LinkButton>
                         </div>
+                    </div>
+
+                    <!-- Imagen a la derecha -->
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        <img src="../../Content/dist/assets/img/rol-del-usuario.png" alt="Imagen Rol" class="img-fluid" style="max-height: 250px;" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </asp:Content>
