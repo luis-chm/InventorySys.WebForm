@@ -28,7 +28,7 @@
             <!-- Tarjeta: Reporte General -->
             <div class="card shadow p-4 mb-4">
                 <div class="card-header bg-light">
-                    <h5 class="mb-0">📄 Reporte General de Materiales</h5>
+                    <h5 class="mb-0">Reporte General de Materiales</h5>
                 </div>
                 <div class="card-body text-center">
                     <asp:Button ID="btnReporteGeneral" runat="server" Text="Descargar Excel" CssClass="btn btn-success px-4 py-2" Width="100%" OnClick="btnReporteGeneral_Click" />
@@ -38,7 +38,7 @@
             <!-- Tarjeta: Reporte por Fechas -->
             <div class="card shadow p-4 mb-4">
                 <div class="card-header bg-light">
-                    <h5 class="mb-0">📆 Reporte por Rango de Fechas</h5>
+                    <h5 class="mb-0">Reporte por Rango de Fechas</h5>
                 </div>
                 <div class="card-body">
                     <div class="row g-3 align-items-end">

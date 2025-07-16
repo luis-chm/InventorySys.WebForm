@@ -66,7 +66,7 @@
                                 <asp:Label ID="lblUserName" Text="" runat="server" CssClass="ms-2"></asp:Label>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/Pages/UserServices/MyProfile">My Profile</a></li>
+                                <li><a class="dropdown-item" href="/Pages/UserServices/MyProfile">Mi Perfil</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
@@ -109,6 +109,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/Pages/Dashboard/Dashboard.aspx" class="nav-link">
+                                    <i class="nav-icon bi bi-clock"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="#administradorSubmenu" data-bs-toggle="collapse" class="nav-link">
                                     <i class="nav-icon bi bi-person"></i>
                                     <p>
@@ -142,25 +150,25 @@
                                         <li class="nav-item">
                                             <a href="/Pages/Collections/Collections.aspx" class="nav-link">
                                                 <i class="nav-icon bi bi-collection"></i>
-                                                <p>Collections</p>
+                                                <p>Colecciones</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/Pages/Formats/Formats.aspx" class="nav-link">
                                                 <i class="nav-icon bi bi-textarea-resize"></i>
-                                                <p>Formats</p>
+                                                <p>Formatos</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/Pages/Sites/Sites.aspx" class="nav-link">
                                                 <i class="nav-icon bi bi-building"></i>
-                                                <p>Sites</p>
+                                                <p>Sitioss</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/Pages/Finitures/Finitures.aspx" class="nav-link">
                                                 <i class="nav-icon bi bi-upc"></i>
-                                                <p>Finitures</p>
+                                                <p>Acabados</p>
                                             </a>
                                         </li>
                                     </ul>
@@ -177,23 +185,27 @@
                                     <li class="nav-item">
                                         <a href="/Pages/Materials/Materials.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-palette"></i>
-                                            <p>Materials</p>
+                                            <p>Materiales</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="/Pages/MaterialTransactions/MaterialTransactions.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-receipt"></i>
                                             <p>
-                                                Material
+                                                Transaccion
                                                 <br />
-                                                Transactions
+                                                Material
                                             </p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="/Pages/DetailMovements/DetailMovements.aspx" class="nav-link">
                                             <i class="nav-icon bi bi-arrows-move"></i>
-                                            <p>Detail Movements</p>
+                                            <p>
+                                                Detalle
+                                                <br />
+                                                Movimiento
+                                                <p>
                                         </a>
                                     </li>
                                 </ul>

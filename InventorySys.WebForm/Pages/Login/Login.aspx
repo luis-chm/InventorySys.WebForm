@@ -25,7 +25,7 @@
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
                                 </div>
-                                <asp:Label ID="alertLabel" CssClass="alert alert-danger" Text="" runat="server" Visible="false"/>
+                                <asp:Label ID="alertLabel" CssClass="alert alert-danger" Text="" runat="server" Visible="false" />
                                 <div class="card-body">
                                     <form action="#" class="signin-form" id="form2" runat="server">
                                         <div class="form-floating mb-3">
@@ -38,13 +38,13 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="#"></a>
-                                            <asp:Button ID="Button1" class="btn btn-secondary" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                                            <asp:Button ID="btnLogin" class="btn btn-secondary" runat="server" Text="Login" OnClick="btnLogin_Click" />
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
                                     <div class="small">
-                                        <a href="mailto:TI@localhost.com">¿Olvidó su contraseña? ¡Contáctenos!</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">¿Olvidó su contraseña? ¡Contáctenos!</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,6 +65,52 @@
                     </div>
                 </div>
             </footer>
+        </div>
+    </div>
+    <!-- Modal de Contraseña Olvidada (agregar antes del cierre del </body>) -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">
+                        <i class="fas fa-lock me-2"></i>Contraseña Olvidada
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-envelope-open-text fa-3x text-primary mb-3"></i>
+                        <h6 class="fw-bold">¿Olvidó su contraseña?</h6>
+                        <p class="text-muted mb-3">
+                            Por favor contacte a nuestro equipo de soporte técnico para restablecer su contraseña.
+                        </p>
+                    </div>
+
+                    <div class="alert alert-info d-flex align-items-center" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <div>
+                            <strong>Correo de soporte:</strong><br>
+                            <a href="mailto:soporte@mirage.cr" class="text-decoration-none">soporte@mirage.cr
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <i class="fas fa-clock me-2"></i>
+                        <div>
+                            <small>
+                                <strong>Horario de atención:</strong><br>
+                                Lunes a Viernes: 8:00 AM - 5:00 PM
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Cerrar
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

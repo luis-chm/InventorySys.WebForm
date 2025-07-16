@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="/Pages/Inicio">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                        <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
                     </ol>
                 </div>
                 <!-- /.Start col -->

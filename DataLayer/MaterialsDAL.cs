@@ -208,5 +208,189 @@ namespace DataLayer
                 return result;
             }
         }
-    }
-}
+        //SECCION DASHBOARD
+        public int ObtenerTotalMateriales()
+        {
+            int totalMateriales = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Materials", conn);
+                    totalMateriales = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return totalMateriales;
+        }
+
+        public decimal ObtenerStockTotal()
+        {
+            decimal stockTotal = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT ISNULL(SUM(MaterialStock), 0) FROM tbl_Materials", conn);
+                    stockTotal = Convert.ToDecimal(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return stockTotal;
+        }
+
+        public int ObtenerTotalTransacciones()
+        {
+            int totalTransacciones = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_MaterialTransactions", conn);
+                    totalTransacciones = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return totalTransacciones;
+        }
+
+        public int ObtenerColeccionesActivas()
+        {
+            int coleccionesActivas = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Collections WHERE CollectionActive = 1", conn);
+                    coleccionesActivas = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return coleccionesActivas;
+        }
+
+        public int ObtenerSitiosActivos()
+        {
+            int sitiosActivos = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Sites WHERE SiteActive = 1", conn);
+                    sitiosActivos = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return sitiosActivos;
+        }
+
+        public int ObtenerFormatosActivos()
+        {
+            int formatosActivos = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Formats WHERE FormatActive = 1", conn);
+                    formatosActivos = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return formatosActivos;
+        }
+
+        public int ObtenerAcabadosActivos()
+        {
+            int acabadosActivos = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Finitures WHERE FinitureActive = 1", conn);
+                    acabadosActivos = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return acabadosActivos;
+        }
+
+        public int ObtenerUsuariosRegistrados()
+        {
+            int usuariosRegistrados = 0;
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tbl_Users", conn);
+                    usuariosRegistrados = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return usuariosRegistrados;
+        }
+    }//FIN CLASE
+}//FIN NAMESPACE

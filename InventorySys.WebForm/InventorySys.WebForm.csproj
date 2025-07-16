@@ -300,6 +300,7 @@
     <Content Include="Pages\Collections\Collections.aspx" />
     <Content Include="Pages\Collections\Create.aspx" />
     <Content Include="Pages\Collections\Edit.aspx" />
+    <Content Include="Pages\Dashboard\Dashboard.aspx" />
     <Content Include="Pages\DetailMovements\Create.aspx" />
     <Content Include="Pages\DetailMovements\DetailMovements.aspx" />
     <Content Include="Pages\DetailMovements\Edit.aspx" />
@@ -415,6 +416,13 @@
     </Compile>
     <Compile Include="Pages\Collections\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dashboard\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Dashboard\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\DetailMovements\Create.aspx.cs">
       <DependentUpon>Create.aspx</DependentUpon>
