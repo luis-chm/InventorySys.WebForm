@@ -1,11 +1,10 @@
 ﻿using BussinessLayer;
+using DataLayer;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace InventorySys.WebForm.Pages.Materials
 {
@@ -16,7 +15,6 @@ namespace InventorySys.WebForm.Pages.Materials
         FinituresBL finituresBL = new FinituresBL();
         FormatsBL formatsBL = new FormatsBL();
         SitesBL sitesBL = new SitesBL();
-        UsersBL usersBL = new UsersBL();
         MaterialsBL MaterialsBL = new MaterialsBL();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,12 +25,21 @@ namespace InventorySys.WebForm.Pages.Materials
                 CargarFinitures();
                 CargarFormats();
                 CargarSites();
-                CargarUsers();
+                MostrarUsuarioActual();
             }
         }
         private void Alertas(string mensaje)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('{mensaje}');", true);
+        }
+        private void MostrarUsuarioActual()
+        {
+            if (SessionHelper.IsUserLoggedIn())
+            {
+                var usuario = SessionHelper.GetCurrentUser();
+                txtUsuarioActual.Text = usuario.UserName;
+                txtUsuarioActual.Visible = true;
+            }
         }
         protected void CargarCollections()
         {
@@ -74,28 +81,23 @@ namespace InventorySys.WebForm.Pages.Materials
             ddlSites.DataSource = lista;
             ddlSites.DataBind();
         }
-        protected void CargarUsers()
-        {
-            List<EntityLayer.Users> lista = usersBL.ListUsers();
-
-            ddlUsers.DataTextField = "UserName";
-            ddlUsers.DataValueField = "UserID";
-
-            ddlUsers.DataSource = lista;
-            ddlUsers.DataBind();
-        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (!SessionHelper.IsUserLoggedIn())
+            {
+                Alertas("Su sesión ha expirado. Por favor, inicie sesión nuevamente.");
+                Response.Redirect("~/Pages/Login/Login.aspx");
+                return;
+            }
             if (string.IsNullOrWhiteSpace(txtMaterialCode.Text) ||
                 string.IsNullOrWhiteSpace(txtMaterialDescription.Text) ||
-                string.IsNullOrWhiteSpace(ddlCollections.SelectedValue)||
+                string.IsNullOrWhiteSpace(ddlCollections.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlFinitures.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlFormats.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlSites.SelectedValue) ||
                 !fileUploadImage.HasFile ||
                 string.IsNullOrWhiteSpace(txtMaterialReceivedDate.Text) ||
-                string.IsNullOrWhiteSpace(txtMaterialStock.Text) ||
-                string.IsNullOrWhiteSpace(ddlUsers.SelectedValue) 
+                string.IsNullOrWhiteSpace(txtMaterialStock.Text)
                 )
             {
                 Alertas("Por favor, complete todos los campos.");
@@ -111,14 +113,15 @@ namespace InventorySys.WebForm.Pages.Materials
                 return;
             }
 
-                try
+            try
             {
 
                 string fileName = Path.GetFileName(fileUploadImage.PostedFile.FileName);
-
+                string uniqueFileName = $"{DateTime.Now:yyyyMMddHHmmss}_{fileName}";
                 // Definir la ruta de destino en la carpeta del proyecto
                 string uploadPath = Server.MapPath("~/UploadedImages/");
-                string fullPath = Path.Combine(uploadPath, fileName);
+                string fullPath = Path.Combine(uploadPath, uniqueFileName);
+
 
                 // Crear la carpeta si no existe
                 if (!Directory.Exists(uploadPath))
@@ -128,8 +131,8 @@ namespace InventorySys.WebForm.Pages.Materials
 
                 // Guardar el archivo en la carpeta
                 fileUploadImage.SaveAs(fullPath);
-
-
+                
+                //obtener datos digitados
                 EntityLayer.Materials Materials = new EntityLayer.Materials()
                 {
                     MaterialID = MaterialID,
@@ -142,7 +145,7 @@ namespace InventorySys.WebForm.Pages.Materials
                     MaterialIMG = fileName,
                     MaterialReceivedDate = Convert.ToDateTime(txtMaterialReceivedDate.Text),
                     MaterialStock = Convert.ToDouble(txtMaterialStock.Text),
-                    User = new EntityLayer.Users() { UserID = Convert.ToInt32(ddlUsers.SelectedValue) },
+                    User = new EntityLayer.Users() { UserID = SessionHelper.GetCurrentUserID() }
                 };
                 if (MaterialID == 0)
                 {
@@ -150,8 +153,9 @@ namespace InventorySys.WebForm.Pages.Materials
 
                     if (resultado > 0)
                     {
+                        string currentUserName = SessionHelper.GetCurrentUserName();
                         string url = VirtualPathUtility.ToAbsolute("~/Pages/Materials/Materials.aspx");
-                        string script = $"alert('Material ingresado con éxito'); window.location.href='{url}';";
+                        string script = $"alert('Material ingresado con éxito por {currentUserName}'); window.location.href='{url}';";
                         ClientScript.RegisterStartupScript(this.GetType(), "AlertRedirect", script, true);
                     }
                     else
@@ -163,8 +167,7 @@ namespace InventorySys.WebForm.Pages.Materials
 
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                throw;
+                Alertas($"Error: {ex.Message}");
             }
         }
     }

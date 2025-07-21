@@ -1,5 +1,7 @@
 ﻿using BussinessLayer;
+using DataLayer;
 using System;
+using System.Web.UI;
 
 namespace InventorySys.WebForm.Pages.Login
 {
@@ -7,7 +9,16 @@ namespace InventorySys.WebForm.Pages.Login
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (SessionHelper.IsUserLoggedIn())
+            {
+                Response.Redirect("~/Pages/Inicio");
+                return;
+            }
 
+            if (!Page.IsPostBack)
+            {
+                alertDiv.Visible = false; // Cambiar de alertLabel a alertDiv
+            }
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
@@ -16,26 +27,22 @@ namespace InventorySys.WebForm.Pages.Login
 
             if (usersEntidad != null)
             {
-                Session["UserLogged"] = usersEntidad;
-                Response.Redirect("~/Pages/Inicio");
+                if (usersEntidad.UserActive)
+                {
+                    Session["UserLogged"] = usersEntidad;
+                    Response.Redirect("~/Pages/Inicio");
+                }
+                else
+                {
+                    alertMessage.Text = "Tu cuenta está desactivada. Contacta al administrador.";
+                    alertDiv.Visible = true;
+                }
             }
             else
             {
-                alertLabel.Text = "Credenciales incorrectas. Inténtalo de nuevo.";
-                alertLabel.Visible = true;
+                alertMessage.Text = "Credenciales incorrectas. Inténtalo de nuevo.";
+                alertDiv.Visible = true;
             }
-        }
-        public void alertas(String texto)
-        {
-            string message = texto;
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("<script type = 'text/javascript'>");
-            sb.Append("window.onload=function(){");
-            sb.Append("alert('");
-            sb.Append(message);
-            sb.Append("')};");
-            sb.Append("</script>");
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
     }
 }

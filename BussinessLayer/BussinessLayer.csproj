@@ -42,13 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionsBL.cs" />
+    <Compile Include="DashboardBL.cs" />
     <Compile Include="DetailMovementsBL.cs" />
     <Compile Include="FinituresBL.cs" />
     <Compile Include="FormatsBL.cs" />
     <Compile Include="MaterialsBL.cs" />
     <Compile Include="MaterialTransactionsBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MaterialsBL_1.cs" />
+    <Compile Include="RolesBL.cs" />
     <Compile Include="ReportsBL.cs" />
     <Compile Include="SitesBL.cs" />
     <Compile Include="UsersBL.cs" />

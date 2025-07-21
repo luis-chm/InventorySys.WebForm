@@ -62,6 +62,13 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <asp:Label runat="server" AssociatedControlID="RadioButtonList1" CssClass="form-label">Estado del Usuario</asp:Label>
+                            <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Vertical" CssClass="form-check">
+                                <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Inactivo" Value="0"></asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
                         <div>
                             <hr />
                             <asp:Button ID="btnAactualizar" class="btn btn-primary" runat="server" Text="Actualizar" OnClick="btnAactualizar_Click" />
@@ -70,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-    </div>
+            </div>
         </div>
     </div>
 

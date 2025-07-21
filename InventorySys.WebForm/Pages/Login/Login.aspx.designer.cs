@@ -15,13 +15,22 @@ namespace InventorySys.WebForm.Pages.Login
     {
 
         /// <summary>
-        /// alertLabel control.
+        /// alertDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label alertLabel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertDiv;
+
+        /// <summary>
+        /// alertMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal alertMessage;
 
         /// <summary>
         /// form2 control.

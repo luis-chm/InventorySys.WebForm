@@ -38,12 +38,10 @@
                             </asp:DropDownList>
                         </div>
 
-                        <div class="mb-3">
-                            <asp:Label runat="server" AssociatedControlID="ddlUsers" CssClass="form-label">Usuario</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlUsers" CssClass="form-select">
-                                <asp:ListItem Value="">Seleccione un usuario</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
+                            <div class="mb-3">
+                                <asp:Label runat="server" ID="lblUsuarioActual" class="form-label">Registrado por:</asp:Label>
+                                <asp:TextBox ID="txtUsuarioActual" runat="server" CssClass="form-control" disabled="true"></asp:TextBox>
+                            </div>
 
                         <div class="mb-3">
                             <asp:Label runat="server" AssociatedControlID="txtMaterialTransactionDate" CssClass="form-label">Fecha de transacción</asp:Label>

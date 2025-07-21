@@ -32,6 +32,7 @@ namespace DataLayer
                                     UserName = rdr.GetString(rdr.GetOrdinal("UserName")),
                                     UserEmail = rdr.GetString(rdr.GetOrdinal("UserEmail")),
                                     UserEncryptedPassword = rdr.GetString(rdr.GetOrdinal("UserEncryptedPassword")),
+                                    UserActive = rdr.GetBoolean(rdr.GetOrdinal("UserActive")),
                                     Role = new Roles
                                     {
                                         RoleID = rdr.GetInt32(rdr.GetOrdinal("RoleID")),

@@ -1,4 +1,5 @@
-﻿using DataLayer;
+﻿using BussinessLayer;
+using DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,8 +15,7 @@ namespace InventorySys.WebForm.Pages.Dashboard
 {
     public partial class Dashboard : System.Web.UI.Page
     {
-        private MaterialsDAL materialsDAL = new MaterialsDAL();
-
+        private readonly DashboardBL dashboardBL = new DashboardBL();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,14 +37,14 @@ namespace InventorySys.WebForm.Pages.Dashboard
         }
         private void CargarMetricasPrincipales()
         {
-            lblTotalMateriales.Text = materialsDAL.ObtenerTotalMateriales().ToString();
-            lblStockTotal.Text = materialsDAL.ObtenerStockTotal().ToString("N0");
-            lblTotalTransacciones.Text = materialsDAL.ObtenerTotalTransacciones().ToString();
-            lblColeccionesActivas.Text = materialsDAL.ObtenerColeccionesActivas().ToString();
-            lblSitiosActivos.Text = materialsDAL.ObtenerSitiosActivos().ToString();
-            lblFormatosActivos.Text = materialsDAL.ObtenerFormatosActivos().ToString();
-            lblAcabadosActivos.Text = materialsDAL.ObtenerAcabadosActivos().ToString();
-            lblUsuariosRegistrados.Text = materialsDAL.ObtenerUsuariosRegistrados().ToString();
+            lblTotalMateriales.Text = dashboardBL.ObtenerTotalMateriales().ToString();
+            lblStockTotal.Text = dashboardBL.ObtenerStockTotal().ToString("N0");
+            lblTotalTransacciones.Text = dashboardBL.ObtenerTotalTransacciones().ToString();
+            lblColeccionesActivas.Text = dashboardBL.ObtenerColeccionesActivas().ToString();
+            lblSitiosActivos.Text = dashboardBL.ObtenerSitiosActivos().ToString();
+            lblFormatosActivos.Text = dashboardBL.ObtenerFormatosActivos().ToString();
+            lblAcabadosActivos.Text = dashboardBL.ObtenerAcabadosActivos().ToString();
+            lblUsuariosRegistrados.Text = dashboardBL.ObtenerUsuariosRegistrados().ToString();
         }
     }
 }

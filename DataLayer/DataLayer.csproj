@@ -201,6 +201,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -218,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionsDAL.cs" />
+    <Compile Include="DashboardDAL.cs" />
     <Compile Include="DBConn.cs" />
     <Compile Include="DetailMovementsDAL.cs" />
     <Compile Include="FinituresDAL.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsDAL.cs" />
     <Compile Include="RolesDAL.cs" />
+    <Compile Include="SessionHelper.cs" />
     <Compile Include="SitesDAL.cs" />
     <Compile Include="UsersDAL.cs" />
     <Compile Include="UserServiceDAL.cs" />

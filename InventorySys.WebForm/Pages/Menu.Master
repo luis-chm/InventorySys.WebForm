@@ -70,7 +70,7 @@
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
-                                <asp:Button ID="btnLogout" runat="server" Text="Logout" class="dropdown-item" OnClick="btnLogout_Click" />
+                                <asp:LinkButton ID="btnLogout1" runat="server" Text="Logout" class="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false" />
                             </ul>
                         </li>
                     </ul>

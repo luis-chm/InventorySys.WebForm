@@ -39,24 +39,32 @@ namespace BussinessLayer
         {
             try
             {
+                if (!SessionHelper.IsUserLoggedIn())
+                {
+                    throw new Exception("No hay usuario logueado en la sesión");
+                }
                 return materialsDAL.CrearMaterials(Materials);
             }
             catch (Exception ex)
             {
 
-                throw new Exception("Error", ex);
+                throw new Exception("Error al crear material", ex);
             }
         }
         public int EditarMaterials(Materials Materials)
         {
             try
             {
+                if (!SessionHelper.IsUserLoggedIn())
+                {
+                    throw new Exception("No hay usuario logueado en la sesión");
+                }
                 return materialsDAL.EditarMaterials(Materials);
             }
             catch (Exception ex)
             {
 
-                throw new Exception("Error", ex);
+                throw new Exception("Error al editar material", ex);
             }
         }
         public int EliminarMaterials(int MaterialID)

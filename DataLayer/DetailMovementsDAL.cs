@@ -18,9 +18,9 @@ namespace DataLayer
 
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT dm.DetailMovID,dm.MaterialTransactionID,dm.DetInitBalance,dm.DetCantEntry,dm.DetCantExit,dm.DetCurrentBalance,mt.MaterialTransactionDate,mt.MaterialTransactionType ,m.MaterialCode,m.MaterialDescription " +
-                    "FROM [dbo].[tbl_DetailMovements] dm  INNER JOIN [dbo].[tbl_MaterialTransactions] mt ON dm.MaterialTransactionID = mt.MaterialTransactionID INNER JOIN [dbo].[tbl_Materials] m  ON mt.MaterialID = m.MaterialID", conn);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand("GestionarDetailMovements", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@accion", "listar");
                 try
                 {
                     conn.Open();

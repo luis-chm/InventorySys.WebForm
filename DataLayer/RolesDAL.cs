@@ -12,14 +12,15 @@ namespace DataLayer
 {
     public class RolesDAL
     {
-        public List<Roles> ListExecuteQuery(string sqlQuery)
+        public List<Roles> ListRoles()
         {
             List<Roles> lista = new List<Roles>();
-
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand(sqlQuery, conn);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@accion", "listar");
+
                 try
                 {
                     conn.Open();
@@ -43,13 +44,37 @@ namespace DataLayer
                 return lista;
             }
         }
-        public List<Roles> ListRoles()
-        {
-            return ListExecuteQuery("SELECT * FROM tbl_Roles");
-        }
         public List<Roles> ListRolesActivos()
         {
-            return ListExecuteQuery("SELECT * FROM tbl_Roles WHERE RoleActive = 1");
+            List<Roles> lista = new List<Roles>();
+            using (SqlConnection conn = new SqlConnection(DBConn.conn))
+            {
+                SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@accion", "listarActivos");
+
+                try
+                {
+                    conn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Roles
+                            {
+                                RoleID = Convert.ToInt32(dr["RoleID"]),
+                                RoleName = dr["RoleName"].ToString(),
+                                RoleActive = Convert.ToBoolean(dr["RoleActive"])
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
+                }
+                return lista;
+            }
         }
         public Roles ObtenerRol(int RoleID)
         {

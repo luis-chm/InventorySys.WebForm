@@ -59,6 +59,12 @@
                                         <%# Eval("Role.RoleName") %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Estado de usuario">
+                                    <ItemTemplate>
+                                        <span class='<%# Convert.ToBoolean(Eval("UserActive")) ? "bi bi-check-circle text-success" : "bi bi-x-circle text-danger" %>'></span>
+                                        <%# Convert.ToBoolean(Eval("UserActive")) ? "Activo" : "Inactivo" %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
                                         <div class="d-flex justify-content-center">
@@ -78,21 +84,21 @@
             </div>
         </div>
     </div>
- <script type="text/javascript">
-     $(document).ready(function () {
-         $('.dataTables1').DataTable({
-             language: {
-                 url: '../../Content/dist/js/es-MX.json'
-             },
-             stripeClasses: [], // Clases de estilos para filas alternas
-             headerCallback: function (thead, data, start, end, display) {
-                 $(thead).find('th').css({
-                     'background-color': '#333', // Estilo de fondo del encabezado
-                     'color': 'white', // Color del texto del encabezado
-                     'text-align': 'center' // Centrar el texto del encabezado
-                 });
-             }
-         });
-     });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTables1').DataTable({
+                language: {
+                    url: '../../Content/dist/js/es-MX.json'
+                },
+                stripeClasses: [], // Clases de estilos para filas alternas
+                headerCallback: function (thead, data, start, end, display) {
+                    $(thead).find('th').css({
+                        'background-color': '#333', // Estilo de fondo del encabezado
+                        'color': 'white', // Color del texto del encabezado
+                        'text-align': 'center' // Centrar el texto del encabezado
+                    });
+                }
+            });
+        });
     </script>
 </asp:Content>

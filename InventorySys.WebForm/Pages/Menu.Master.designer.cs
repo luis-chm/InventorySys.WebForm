@@ -42,13 +42,13 @@ namespace InventorySys.WebForm
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
-        /// btnLogout control.
+        /// btnLogout1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
+        protected global::System.Web.UI.WebControls.LinkButton btnLogout1;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

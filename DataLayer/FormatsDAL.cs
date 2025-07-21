@@ -17,8 +17,9 @@ namespace DataLayer
 
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_Formats", conn);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand("GestionarFormats", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@accion", "listar");
                 try
                 {
                     conn.Open();

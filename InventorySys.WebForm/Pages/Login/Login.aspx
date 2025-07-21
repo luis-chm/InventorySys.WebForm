@@ -25,8 +25,10 @@
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
                                 </div>
-                                <asp:Label ID="alertLabel" CssClass="alert alert-danger" Text="" runat="server" Visible="false" />
-                                <div class="card-body">
+<div id="alertDiv" class="alert alert-danger alert-dismissible fade show" role="alert" runat="server" visible="false">
+    <asp:Literal ID="alertMessage" runat="server"></asp:Literal>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>                                <div class="card-body">
                                     <form action="#" class="signin-form" id="form2" runat="server">
                                         <div class="form-floating mb-3">
                                             <asp:TextBox ID="txtEmail" CssClass="form-control" TextMode="Email" placeholder="name@example.com" required="true" runat="server" />

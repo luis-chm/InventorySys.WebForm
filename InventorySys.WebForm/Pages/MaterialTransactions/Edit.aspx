@@ -41,13 +41,13 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <asp:Label runat="server" AssociatedControlID="ddlUsers" CssClass="form-label">Usuario</asp:Label>
-                                <asp:DropDownList runat="server" ID="ddlUsers" CssClass="form-select">
-                                    <asp:ListItem Value="">Seleccione un usuario</asp:ListItem>
-                                </asp:DropDownList>
+
+                      <div class="col-md-6">
+                            <div class="mb-3">
+                                <asp:Label runat="server" ID="lblUsuarioActual" class="form-label">Editado por:</asp:Label>
+                                <asp:TextBox ID="txtUsuarioActual" runat="server" CssClass="form-control" disabled="true"></asp:TextBox>
                             </div>
+
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">

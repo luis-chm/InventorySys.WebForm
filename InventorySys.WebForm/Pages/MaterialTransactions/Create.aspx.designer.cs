@@ -33,13 +33,22 @@ namespace InventorySys.WebForm.Pages.MaterialTransactions
         protected global::System.Web.UI.WebControls.DropDownList ddlMaterials;
 
         /// <summary>
-        /// ddlUsers control.
+        /// lblUsuarioActual control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUsers;
+        protected global::System.Web.UI.WebControls.Label lblUsuarioActual;
+
+        /// <summary>
+        /// txtUsuarioActual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUsuarioActual;
 
         /// <summary>
         /// txtMaterialTransactionDate control.

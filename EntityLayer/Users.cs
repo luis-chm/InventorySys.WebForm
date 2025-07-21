@@ -13,6 +13,8 @@ namespace EntityLayer
         public string UserEmail { get; set; }
         public string UserEncryptedPassword { get; set; }
         public int? RoleID { get; set; }
+        public bool UserActive { get; set; }
+
         public Roles Role { get; set; }
     }
 }

@@ -17,9 +17,9 @@ namespace DataLayer
             List<Users> lista = new List<Users>();
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("SELECT u.UserID,u.UserName,u.UserEmail,u.UserEncryptedPassword,u.RoleID,r.RoleName " +
-                    "FROM [dbo].[tbl_Users] u INNER JOIN [dbo].[tbl_Roles] r ON u.RoleID = r.RoleID", conn);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@accion", "listar");
                 try
                 {
                     conn.Open();
@@ -34,6 +34,7 @@ namespace DataLayer
                                 UserEmail = dr["UserEmail"].ToString(),
                                 UserEncryptedPassword = dr["UserEncryptedPassword"].ToString(),
                                 RoleID = Convert.ToInt32(dr["RoleID"]),
+                                UserActive = Convert.ToBoolean(dr["UserActive"]),
                                 Role = new Roles { RoleName = dr["RoleName"].ToString() }
                                 
                             });
@@ -70,6 +71,7 @@ namespace DataLayer
                             userEntidad.UserEmail = dr["UserEmail"].ToString();
                             userEntidad.UserEncryptedPassword = dr["UserEncryptedPassword"].ToString();
                             userEntidad.RoleID = Convert.ToInt32(dr["RoleID"]);
+                            userEntidad.UserActive = Convert.ToBoolean(dr["UserActive"]);
                         }
                     }
                 }
@@ -101,6 +103,7 @@ namespace DataLayer
                     cmd.Parameters.AddWithValue("@UserEmail", user.UserEmail);
                     cmd.Parameters.AddWithValue("@UserEncryptedPassword", user.UserEncryptedPassword);
                     cmd.Parameters.AddWithValue("@RoleID", user.Role.RoleID);
+                    cmd.Parameters.AddWithValue("@UserActive", user.UserActive);
 
                     int RowsAffected = cmd.ExecuteNonQuery();
                     if (RowsAffected > 0) result = 1;
@@ -134,6 +137,7 @@ namespace DataLayer
                     cmd.Parameters.AddWithValue("@UserEmail", user.UserEmail);
                     cmd.Parameters.AddWithValue("@UserEncryptedPassword", user.UserEncryptedPassword);
                     cmd.Parameters.AddWithValue("@RoleID", user.Role.RoleID);
+                    cmd.Parameters.AddWithValue("@UserActive", user.UserActive);
 
                     int RowsAffected = cmd.ExecuteNonQuery();
                     if (RowsAffected > 0) result = 1;
