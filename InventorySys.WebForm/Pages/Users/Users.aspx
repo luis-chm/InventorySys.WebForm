@@ -51,7 +51,8 @@
                                 <asp:BoundField DataField="UserEmail" HeaderText="Email" />
                                 <asp:TemplateField HeaderText="Contraseña">
                                     <ItemTemplate>
-                                        <label class="password"><%# new string('*', Eval("UserEncryptedPassword").ToString().Length) %></label>
+                                        <label class="password"><%# new string('*', Math.Min(8, Eval("UserEncryptedPassword").ToString().Length)) %></label>
+
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Nombre de Rol">
