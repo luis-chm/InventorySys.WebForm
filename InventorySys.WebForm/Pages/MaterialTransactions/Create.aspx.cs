@@ -22,6 +22,9 @@ namespace InventorySys.WebForm.Pages.MaterialTransactions
                 CargarMaterials();
                 MostrarUsuarioActual();
 
+                txtMaterialTransactionQuantity.Attributes["min"] = "0";
+                txtMaterialTransactionQuantity.Attributes["oninput"] = "this.value = Math.abs(this.value)";
+
             }
         }
         private void Alertas(string mensaje)

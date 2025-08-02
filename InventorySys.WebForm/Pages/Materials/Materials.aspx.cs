@@ -1,4 +1,5 @@
 ﻿using BussinessLayer;
+using DataLayer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,6 +56,7 @@ namespace InventorySys.WebForm.Pages.Materials
             EntityLayer.Materials material = MaterialsBL.ObtenerMaterial(Convert.ToInt32(MaterialID));
             if (material != null)
             {
+
                 int respuesta = MaterialsBL.EliminarMaterials(material.MaterialID);
                 DeleteImage(material.MaterialIMG);
                 if (respuesta > 0)

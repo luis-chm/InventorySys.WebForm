@@ -15,13 +15,13 @@ namespace InventorySys.WebForm.Pages.Reportes
     {
 
         /// <summary>
-        /// btnReporteGeneral control.
+        /// btnReporteGeneral1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReporteGeneral;
+        protected global::System.Web.UI.WebControls.LinkButton btnReporteGeneral1;
 
         /// <summary>
         /// txtFechaInicio control.
@@ -42,12 +42,12 @@ namespace InventorySys.WebForm.Pages.Reportes
         protected global::System.Web.UI.WebControls.TextBox txtFechaFin;
 
         /// <summary>
-        /// btnReporteByDate control.
+        /// btnReporteByDate1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReporteByDate;
+        protected global::System.Web.UI.WebControls.LinkButton btnReporteByDate1;
     }
 }

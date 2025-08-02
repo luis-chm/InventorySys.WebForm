@@ -26,6 +26,10 @@ namespace InventorySys.WebForm.Pages.Materials
                 CargarFormats();
                 CargarSites();
                 MostrarUsuarioActual();
+
+                //Limitar a NUM no negativos
+                txtMaterialStock.Attributes["min"] = "0";
+                txtMaterialStock.Attributes["oninput"] = "this.value = Math.abs(this.value)";
             }
         }
         private void Alertas(string mensaje)
@@ -131,7 +135,12 @@ namespace InventorySys.WebForm.Pages.Materials
 
                 // Guardar el archivo en la carpeta
                 fileUploadImage.SaveAs(fullPath);
-                
+                // Validar que el stock sea un número positivo
+                if (!double.TryParse(txtMaterialStock.Text, out double stock) || stock < 0)
+                {
+                    Alertas("El stock debe ser un número mayor o igual a 0.");
+                    return;
+                }
                 //obtener datos digitados
                 EntityLayer.Materials Materials = new EntityLayer.Materials()
                 {

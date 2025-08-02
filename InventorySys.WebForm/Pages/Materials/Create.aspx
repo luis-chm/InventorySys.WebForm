@@ -91,7 +91,7 @@
 
                             <div class="mb-3">
                                 <asp:Label runat="server" AssociatedControlID="txtMaterialStock" CssClass="form-label">Stock</asp:Label>
-                                <asp:TextBox runat="server" ID="txtMaterialStock" CssClass="form-control" TextMode="Number" />
+                                <asp:TextBox runat="server" ID="txtMaterialStock" CssClass="form-control" TextMode="Number"  />
                             </div>
                         </div>
                     </div>

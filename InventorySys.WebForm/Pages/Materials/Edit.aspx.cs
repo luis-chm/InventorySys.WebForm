@@ -27,6 +27,8 @@ namespace InventorySys.WebForm.Pages.Materials
                 CargarSites();
                 CargarMaterial();
                 MostrarUsuarioActual();
+                txtMaterialStock.Attributes["min"] = "0";
+                txtMaterialStock.Attributes["oninput"] = "this.value = Math.abs(this.value)";
             }
            
         }

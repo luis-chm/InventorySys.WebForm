@@ -17,9 +17,9 @@ namespace DataLayer
             List<Users> lista = new List<Users>();
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                SqlCommand cmd = new SqlCommand("ManageUsers", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@accion", "listar");
+                cmd.Parameters.AddWithValue("@action", "list");
                 try
                 {
                     conn.Open();
@@ -58,9 +58,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                    SqlCommand cmd = new SqlCommand("ManageUsers", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "consultar");
+                    cmd.Parameters.AddWithValue("@action", "get");
                     cmd.Parameters.AddWithValue("@UserID", UserID);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -96,9 +96,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                    SqlCommand cmd = new SqlCommand("ManageUsers", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "agregar");
+                    cmd.Parameters.AddWithValue("@action", "add");
                     cmd.Parameters.AddWithValue("@UserName", user.UserName);
                     cmd.Parameters.AddWithValue("@UserEmail", user.UserEmail);
                     cmd.Parameters.AddWithValue("@UserEncryptedPassword", user.UserEncryptedPassword);
@@ -129,9 +129,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                    SqlCommand cmd = new SqlCommand("ManageUsers", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "modificar");
+                    cmd.Parameters.AddWithValue("@action", "update");
                     cmd.Parameters.AddWithValue("@UserID", user.UserID);
                     cmd.Parameters.AddWithValue("@UserName", user.UserName);
                     cmd.Parameters.AddWithValue("@UserEmail", user.UserEmail);
@@ -163,9 +163,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarUsuarios", conn);
+                    SqlCommand cmd = new SqlCommand("ManageUsers", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "borrar");
+                    cmd.Parameters.AddWithValue("@action", "delete");
                     cmd.Parameters.AddWithValue("@UserID", UserID);
 
                     int RowsAffected = cmd.ExecuteNonQuery();

@@ -14,11 +14,12 @@ CREATE TABLE tbl_Roles (
 CREATE TABLE tbl_Users (
     UserID INT IDENTITY(1,1) PRIMARY KEY,
     UserName VARCHAR(50) NOT NULL,
-    UserEmail VARCHAR(100) NOT NULL,
+    UserEmail VARCHAR(320) NOT NULL,
     UserEncryptedPassword VARCHAR(100) NOT NULL,
-	UserActive BIT NOT NULL,
+    UserActive BIT NOT NULL,
     RoleID INT,
-    CONSTRAINT FK_Users_Roles FOREIGN KEY (RoleID) REFERENCES tbl_Roles(RoleID)
+    CONSTRAINT FK_Users_Roles FOREIGN KEY (RoleID) REFERENCES tbl_Roles(RoleID),
+    CONSTRAINT CHK_UserEmail_Format CHECK (UserEmail LIKE '%@%.%')
 );
 
 -- Tabla tbl_Collections
@@ -66,6 +67,7 @@ CREATE TABLE tbl_Materials (
     MaterialReceivedDate DATE NOT NULL,
     MaterialStock DECIMAL(18, 2) NOT NULL,
     UserID INT,
+    RecordInsertDateTime DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_Materials_Collections FOREIGN KEY (CollectionID) REFERENCES tbl_Collections(CollectionID),
     CONSTRAINT FK_Materials_Finitures FOREIGN KEY (FinitureID) REFERENCES tbl_Finitures(FinitureID),
     CONSTRAINT FK_Materials_Formats FOREIGN KEY (FormatID) REFERENCES tbl_Formats(FormatID),
@@ -102,33 +104,33 @@ CREATE TABLE tbl_DetailMovements (
 
 -- Procedimientos almacenados tabla usuarios
 
-CREATE PROCEDURE GestionarUsuarios
-    @accion NVARCHAR(10),
+CREATE PROCEDURE ManageUsers
+    @action NVARCHAR(10),
     @UserID INT = NULL,
     @UserName VARCHAR(50) = NULL,
-    @UserEmail VARCHAR(100) = NULL,
+    @UserEmail VARCHAR(320) = NULL,
     @UserEncryptedPassword VARCHAR(100) = NULL,
-	@UserActive BIT = NULL,
+    @UserActive BIT = NULL,
     @RoleID INT = NULL
 AS
 BEGIN
     DECLARE @EncryptedPassword NVARCHAR(100)
     
-    IF @accion = 'agregar'
+    IF @action = 'add'
     BEGIN
-        -- Encriptar contraseña antes de insertar
+        -- Encriptar contraseña antes de insertarla usando la funcion dbo.EncryptPassword
         SET @EncryptedPassword = dbo.EncryptPassword(@UserEncryptedPassword)
         
         INSERT INTO tbl_Users (UserName, UserEmail, UserEncryptedPassword, UserActive, RoleID) 
         VALUES (@UserName, @UserEmail, @EncryptedPassword, @UserActive, @RoleID);
     END
-    ELSE IF @accion = 'borrar'
+    ELSE IF @action = 'delete'
     BEGIN
         DELETE FROM tbl_Users WHERE UserID = @UserID;
     END
-    ELSE IF @accion = 'modificar'
+    ELSE IF @action = 'update'
     BEGIN
-        -- Si viene nueva contraseña, encriptarla
+        -- Si se recibió una nueva contraseña válida (no es NULL y no está vacía), entonces procedé a actualizarla
         IF @UserEncryptedPassword IS NOT NULL AND @UserEncryptedPassword != ''
         BEGIN
             SET @EncryptedPassword = dbo.EncryptPassword(@UserEncryptedPassword)
@@ -148,13 +150,13 @@ BEGIN
             RoleID = @RoleID
         WHERE UserID = @UserID;
     END
-    ELSE IF @accion = 'consultar'
+    ELSE IF @action = 'get'
     BEGIN
         SELECT UserID, UserName, UserEmail, UserEncryptedPassword, RoleID, UserActive
         FROM tbl_Users
         WHERE UserID = @UserID;
     END
-	ELSE IF @accion = 'listar'
+    ELSE IF @action = 'list'
     BEGIN
         SELECT u.UserID,
                u.UserName,
@@ -168,7 +170,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        SELECT 'Acción no válida' as Mensaje;
+        SELECT 'Invalid action' as Message;
     END
 END
 
@@ -539,19 +541,19 @@ CREATE PROCEDURE [dbo].[GestionarMaterials]
     @MaterialID INT = NULL,
     @MaterialCode VARCHAR(50) = NULL,
     @MaterialDescription VARCHAR(200) = NULL,
-	@CollectionID INT = NULL,
+    @CollectionID INT = NULL,
     @FinitureID INT = NULL,
     @FormatID INT = NULL,
     @SiteID INT = NULL,
     @MaterialIMG VARCHAR(MAX) = NULL,
-	@MaterialReceivedDate DATETIME = NULL,
-	@MaterialStock DECIMAL(18,2) = NULL,
+    @MaterialReceivedDate DATETIME = NULL,
+    @MaterialStock DECIMAL(18,2) = NULL,
     @UserID INT = NULL
 AS
 BEGIN
     IF @accion = 'agregar'
     BEGIN
-      INSERT INTO [dbo].[tbl_Materials]
+        INSERT INTO [dbo].[tbl_Materials]
            ([MaterialCode]
            ,[MaterialDescription]
            ,[CollectionID]
@@ -561,8 +563,9 @@ BEGIN
            ,[MaterialIMG]
            ,[MaterialReceivedDate]
            ,[MaterialStock]
-           ,[UserID])
-     VALUES
+           ,[UserID]
+           ,[RecordInsertDateTime])  -- NUEVO: Agregar explícitamente
+        VALUES
            (@MaterialCode
            ,@MaterialDescription
            ,@CollectionID
@@ -572,44 +575,48 @@ BEGIN
            ,@MaterialIMG
            ,@MaterialReceivedDate
            ,@MaterialStock
-           ,@UserID)
+           ,@UserID
+           ,GETDATE())              -- NUEVO: Establecer fecha actual
     END
     ELSE IF @accion = 'borrar'
     BEGIN
-        DELETE FROM  [dbo].[tbl_Materials] WHERE MaterialID = @MaterialID;
+        DELETE FROM [dbo].[tbl_Materials] WHERE MaterialID = @MaterialID;
     END
     ELSE IF @accion = 'modificar'
     BEGIN
-       UPDATE [dbo].[tbl_Materials]
-   SET [MaterialCode] = @MaterialCode
-      ,[MaterialDescription] = @MaterialDescription
-      ,[CollectionID] = @CollectionID
-      ,[FinitureID] = @FinitureID
-      ,[FormatID] = @FormatID
-      ,[SiteID] = @SiteID
-      ,[MaterialIMG] = @MaterialIMG
-      ,[MaterialReceivedDate] = @MaterialReceivedDate
-      ,[MaterialStock] = @MaterialStock
-      ,[UserID] = @UserID
-      WHERE MaterialID = @MaterialID;
+        UPDATE [dbo].[tbl_Materials]
+        SET [MaterialCode] = @MaterialCode
+           ,[MaterialDescription] = @MaterialDescription
+           ,[CollectionID] = @CollectionID
+           ,[FinitureID] = @FinitureID
+           ,[FormatID] = @FormatID
+           ,[SiteID] = @SiteID
+           ,[MaterialIMG] = @MaterialIMG
+           ,[MaterialReceivedDate] = @MaterialReceivedDate
+           ,[MaterialStock] = @MaterialStock
+           ,[UserID] = @UserID
+           -- NOTA: NO actualizamos RecordInsertDateTime en UPDATE
+           -- porque es la fecha de inserción original
+        WHERE MaterialID = @MaterialID;
     END
     ELSE IF @accion = 'consultar'
     BEGIN
-      SELECT [MaterialID]
-      ,[MaterialCode]
-      ,[MaterialDescription]
-      ,[CollectionID]
-      ,[FinitureID]
-      ,[FormatID]
-      ,[SiteID]
-      ,[MaterialIMG]
-      ,CONVERT(char(10), [MaterialReceivedDate], 103) AS MaterialReceivedDate  -- AGREGAR ALIAS
-      ,[MaterialStock]
-      ,[UserID]
-  FROM [dbo].[tbl_Materials]
-  WHERE MaterialID = @MaterialID;
+        SELECT [MaterialID]
+              ,[MaterialCode]
+              ,[MaterialDescription]
+              ,[CollectionID]
+              ,[FinitureID]
+              ,[FormatID]
+              ,[SiteID]
+              ,[MaterialIMG]
+              ,CONVERT(char(10), [MaterialReceivedDate], 103) AS MaterialReceivedDate
+              ,[MaterialStock]
+              ,[UserID]
+              ,[RecordInsertDateTime]  -- NUEVO: Incluir en consulta
+        FROM [dbo].[tbl_Materials]
+        WHERE MaterialID = @MaterialID;
     END
-	ELSE IF @accion = 'listar'
+    ELSE IF @accion = 'listar'
     BEGIN
         SELECT m.MaterialID,
                m.MaterialCode,
@@ -626,7 +633,8 @@ BEGIN
                m.MaterialReceivedDate,
                m.MaterialStock,
                m.UserID,
-               u.UserName
+               u.UserName,
+               m.RecordInsertDateTime  -- NUEVO: Incluir en listado
         FROM [dbo].[tbl_Materials] m 
         INNER JOIN [dbo].[tbl_Collections] c ON c.CollectionID = m.CollectionID 
         INNER JOIN [dbo].[tbl_Finitures] f ON f.FinitureID = m.FinitureID 
@@ -802,7 +810,7 @@ BEGIN
         u.UserEmail = @UserEmail 
         AND u.UserEncryptedPassword = @EncryptedPassword
 END
-
+----------------------------------------------------------------------------------------------
 -- Crear función para encriptar contraseñas con SHA256
 CREATE FUNCTION dbo.EncryptPassword(@password NVARCHAR(100))
 RETURNS NVARCHAR(100)
@@ -818,15 +826,6 @@ END
 GO
 
 -- Ejemplo de uso:
--- Ver contraseñas actuales (antes de encriptar)
-SELECT UserID, UserName, UserEmail, UserEncryptedPassword 
-FROM tbl_Users
-
--- Encriptar todas las contraseñas existentes
-UPDATE tbl_Users 
-SET UserEncryptedPassword = dbo.EncryptPassword(UserEncryptedPassword)
-WHERE LEN(UserEncryptedPassword) < 64  -- Solo actualizar si no están encriptadas ya
-
 -- Verificar que se encriptaron (deberían tener 64 caracteres)
 SELECT UserID, UserName, UserEmail, 
        UserEncryptedPassword, 
@@ -834,6 +833,7 @@ SELECT UserID, UserName, UserEmail,
 FROM tbl_Users
 -- SELECT dbo.EncryptPassword('mipassword123') -- Retorna hash encriptado
 
+----------------------------------------------------------------------------------------------
 
 -- Procedimientos almacenado para reporte materiales por fecha
 
@@ -955,3 +955,144 @@ BEGIN
     WHERE 
         mt.MaterialTransactionDate BETWEEN CONVERT(DATE, @fechaInicio, 103) AND CONVERT(DATE, @fechaFin, 103);
 END;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-- Vista 
+
+-- Crear nueva vista optimizada para gestión de stock crítico
+CREATE VIEW vw_CriticalStockMaterials AS
+SELECT 
+    m.MaterialID,
+    m.MaterialCode,
+    m.MaterialDescription,
+    m.MaterialStock,
+    c.CollectionName,
+    s.SiteName,
+    CASE 
+        WHEN m.MaterialStock = 0 THEN 'SIN STOCK'
+        WHEN m.MaterialStock < 5 THEN 'CRITICO'
+        WHEN m.MaterialStock < 15 THEN 'BAJO'
+        ELSE 'NORMAL'
+    END AS StockStatus,
+    DATEDIFF(day, m.MaterialReceivedDate, GETDATE()) AS DaysInInventory
+FROM tbl_Materials m
+INNER JOIN tbl_Collections c ON m.CollectionID = c.CollectionID
+INNER JOIN tbl_Sites s ON m.SiteID = s.SiteID
+WHERE m.MaterialStock < 20;  -- Solo materiales con stock bajo
+
+-- EJEMPLOS DE USO DE LA VISTA:
+
+-- 1. Ver todos los materiales con stock crítico
+SELECT * FROM vw_CriticalStockMaterials 
+WHERE StockStatus = 'CRITICO';
+
+-- 2. Materiales sin stock (emergencia)
+SELECT * FROM vw_CriticalStockMaterials 
+WHERE StockStatus = 'SIN STOCK';
+
+-- 2. Materiales Bajo
+SELECT * FROM vw_CriticalStockMaterials 
+WHERE StockStatus = 'BAJO';
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-- tabla para auditoria
+
+CREATE TABLE tbl_AuditLog (
+    AuditLogID INT IDENTITY(1,1) PRIMARY KEY,
+    TableName VARCHAR(50) NOT NULL,
+    Operation VARCHAR(10) NOT NULL,
+    RecordID INT NOT NULL,
+    UserID INT NULL,
+    OperationDateTime DATETIME NOT NULL DEFAULT GETDATE(),
+    OldValues VARCHAR(MAX) NULL,
+    NewValues VARCHAR(MAX) NULL,
+    CONSTRAINT FK_AuditLog_Users FOREIGN KEY (UserID) REFERENCES tbl_Users(UserID)
+);
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-- TRIGGERS para tabla auditoria
+
+-- INSERT
+CREATE TRIGGER trg_Materials_Insert
+ON tbl_Materials                    -- En la tabla de materiales
+AFTER INSERT                        -- DESPUÉS de insertar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    PRINT 'TRIGGER INSERT ejecutado - Nuevo material agregado';
+
+    -- Automáticamente guarda en la bitácora lo que se insertó
+    INSERT INTO tbl_AuditLog (TableName, Operation, RecordID, UserID, OldValues, NewValues)
+    SELECT 
+        'tbl_Materials',                                    -- Tabla afectada
+        'INSERT',                                           -- Operación
+        i.MaterialID,                                       -- ID del material insertado
+        i.UserID,                                          -- Usuario que lo insertó
+		'N/A',                                             -- No hay registros anteriores
+        CONCAT('Código:', i.MaterialCode, 
+               '; Descripción:', i.MaterialDescription, 
+               '; Stock:', i.MaterialStock)                 -- Datos nuevos
+    FROM inserted i;  -- 'inserted' es una tabla especial que contiene los datos que se insertaron
+END;
+
+-- UPDATE
+CREATE TRIGGER trg_Materials_Update
+ON tbl_Materials
+AFTER UPDATE                        -- DESPUÉS de actualizar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    PRINT 'TRIGGER UPDATE ejecutado - Material modificado';
+
+    -- Guarda tanto los valores anteriores como los nuevos
+    INSERT INTO tbl_AuditLog (TableName, Operation, RecordID, UserID, OldValues, NewValues)
+    SELECT 
+        'tbl_Materials',
+        'UPDATE',
+        i.MaterialID,
+        i.UserID,
+        CONCAT('Stock anterior:', d.MaterialStock, 
+               '; Descripción anterior:', d.MaterialDescription),    -- Datos viejos
+        CONCAT('Stock nuevo:', i.MaterialStock, 
+               '; Descripción nueva:', i.MaterialDescription)       -- Datos nuevos
+    FROM inserted i                                         -- Datos nuevos
+    INNER JOIN deleted d ON i.MaterialID = d.MaterialID;   -- Datos anteriores
+END;
+
+--DELETE
+CREATE TRIGGER trg_Materials_Delete
+ON tbl_Materials
+AFTER DELETE                        -- DESPUÉS de borrar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    PRINT 'TRIGGER DELETE ejecutado - Material eliminado';
+
+    -- Guarda qué se borró
+    INSERT INTO tbl_AuditLog (TableName, Operation, RecordID, OldValues)
+    SELECT 
+        'tbl_Materials',
+        'DELETE',
+        d.MaterialID,                                       -- ID del material borrado
+        CONCAT('Código borrado:', d.MaterialCode, 
+               '; Descripción borrada:', d.MaterialDescription, 
+               '; Stock que tenía:', d.MaterialStock)       -- Datos que se perdieron
+    FROM deleted d;  -- 'deleted' contiene los datos que se borraron
+END;
+
+-- Verificar movimientos Triggers 
+SELECT * FROM tbl_AuditLog WHERE Operation = 'INSERT';
+
+-------------------------------------------------------------------------------------------------------------------------
+-- PRUEBA DE CONSTRAINT
+
+-- Esto DEBE FALLAR no lleva @ ni punto
+INSERT INTO tbl_Users (UserName, UserEmail, UserEncryptedPassword, UserActive, RoleID)
+VALUES ('Test User', 'emailinvalido', 'password123', 1, 1);
+
+-- Esto DEBE FUNCIONAR lleva @ y punto
+INSERT INTO tbl_Users (UserName, UserEmail, UserEncryptedPassword, UserActive, RoleID)
+VALUES ('Test User', 'usuario@gmail.com', 'password123', 1, 1);

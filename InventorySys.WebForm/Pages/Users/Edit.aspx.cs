@@ -52,6 +52,15 @@ namespace InventorySys.WebForm.Pages.Users
                     txtUserEmail.Text = users.UserEmail;
                     txtPassword.Text = users.UserEncryptedPassword;
                     CargarRoles(users.RoleID.ToString());
+                    ddlRoles.SelectedValue = users.RoleID.ToString();
+                    if (users.UserActive)
+                    {
+                        RadioButtonList1.SelectedValue = "1";
+                    }
+                    else
+                    {
+                        RadioButtonList1.SelectedValue = "0";
+                    }
                 }
                 else
                 {
@@ -63,8 +72,8 @@ namespace InventorySys.WebForm.Pages.Users
         {
             if (string.IsNullOrWhiteSpace(txtUserName.Text) ||
                 string.IsNullOrWhiteSpace(txtUserEmail.Text) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                string.IsNullOrWhiteSpace(ddlRoles.SelectedValue))
+                string.IsNullOrWhiteSpace(ddlRoles.SelectedValue) ||
+                string.IsNullOrWhiteSpace(RadioButtonList1.SelectedValue))
             {
                 Alertas("Por favor, complete todos los campos.");
                 return;
@@ -78,6 +87,7 @@ namespace InventorySys.WebForm.Pages.Users
                     UserEmail = txtUserEmail.Text,
                     UserEncryptedPassword = txtPassword.Text,
                     Role = new EntityLayer.Roles() { RoleID = Convert.ToInt32(ddlRoles.SelectedValue) },
+                    UserActive = Convert.ToBoolean(Convert.ToInt32(RadioButtonList1.SelectedValue))
                 };
                 if (UserID != 0)
                 {
