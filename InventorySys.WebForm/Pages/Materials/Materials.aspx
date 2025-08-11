@@ -1,6 +1,16 @@
 ﻿<%@ Page Language="C#" Title="" MasterPageFile="~/Pages/Menu.Master" AutoEventWireup="true" CodeBehind="Materials.aspx.cs" Inherits="InventorySys.WebForm.Pages.Materials.Materials" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+        <style>
+            .tooltip {
+                opacity: 1 !important;
+            }
+
+                .tooltip .tooltip-inner {
+                    opacity: 1 !important;
+                    background-color: transparent !important;
+                }
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="app-content-header">
@@ -41,7 +51,21 @@
 
                             <Columns>                              
                                 <asp:BoundField DataField="MaterialCode" HeaderText="Codigo del material" />
-                                <asp:BoundField DataField="MaterialDescription" HeaderText="Descripcion" />
+                                <asp:TemplateField HeaderText="Descripcion">
+                                    <ItemTemplate>
+                                        <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" 
+                                           data-bs-title='<div class="text-center p-3 bg-white border rounded shadow" style="max-width: 250px;">
+                                                            <h6 class="mb-2 text-primary">Imagen del Material</h6>
+                                                            <img src="<%# ResolveUrl("~/UploadedImages/" + Eval("MaterialIMG").ToString()) %>" 
+                                                                 class="img-fluid rounded border" 
+                                                                 style="width: 200px; height: 150px; object-fit: cover;" 
+                                                                 alt="Imagen del material" />
+                                                          </div>'
+                                           onclick="return false;">
+                                            <%# Eval("MaterialDescription") %>
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>  
                                 <asp:TemplateField HeaderText="Nombre de coleccion">
                                     <ItemTemplate>
                                         <%# Eval("Collection.CollectionName") %>
@@ -102,22 +126,37 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.dataTables1').DataTable({
-                language: {
-                    url: '../../Content/dist/js/es-MX.json'
-                },
-                stripeClasses: [], // Clases de estilos para filas alternas
-                headerCallback: function (thead, data, start, end, display) {
-                    $(thead).find('th').css({
-                        'background-color': '#333', // Estilo de fondo del encabezado
-                        'color': 'white', // Color del texto del encabezado
-                        'text-align': 'center' // Centrar el texto del encabezado
-                    });
-                }
-            });
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dataTables1').DataTable({
+            language: {
+                url: '../../Content/dist/js/es-MX.json'
+            },
+            stripeClasses: [],
+            headerCallback: function (thead, data, start, end, display) {
+                $(thead).find('th').css({
+                    'background-color': '#333',
+                    'color': 'white',
+                    'text-align': 'center'
+                });
+            },
+            drawCallback: function (settings) {
+                // Inicializar tooltips después de cada redibujado de la tabla
+                $('[data-bs-toggle="tooltip"]').tooltip({
+                    trigger: 'hover',
+                    delay: { show: 200, hide: 100 },
+                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow d-none"></div><div class="tooltip-inner bg-transparent border-0 p-0"></div></div>'
+                });
+            }
         });
-    </script>
+
+        // Inicializar tooltips al cargar la página
+        $('[data-bs-toggle="tooltip"]').tooltip({
+            trigger: 'hover',
+            delay: { show: 200, hide: 100 },
+            template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow d-none"></div><div class="tooltip-inner bg-transparent border-0 p-0"></div></div>'
+        });
+    });
+</script>
 </asp:Content>
 

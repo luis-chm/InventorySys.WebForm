@@ -294,7 +294,7 @@
     <Content Include="Content\dist\pages\widgets\info-box.html" />
     <Content Include="Content\dist\pages\widgets\small-box.html" />
     <Content Include="Content\Site.css" />
-    <Content Include="DB\InventorySYS-v2.sql" />
+    <Content Include="DB\InventorySYS-Full.sql" />
     <Content Include="DB\InventorySYS.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

@@ -14,12 +14,12 @@ CREATE TABLE tbl_Roles (
 CREATE TABLE tbl_Users (
     UserID INT IDENTITY(1,1) PRIMARY KEY,
     UserName VARCHAR(50) NOT NULL,
-    UserEmail VARCHAR(320) NOT NULL,
+    UserEmail VARCHAR(500) NOT NULL,
     UserEncryptedPassword VARCHAR(100) NOT NULL,
     UserActive BIT NOT NULL,
     RoleID INT,
     CONSTRAINT FK_Users_Roles FOREIGN KEY (RoleID) REFERENCES tbl_Roles(RoleID),
-    CONSTRAINT CHK_UserEmail_Format CHECK (UserEmail LIKE '%@%.%')
+    CONSTRAINT CHK_UserEmail_Format CHECK (UserEmail LIKE '%@%.%') -- constraint para validar email
 );
 
 -- Tabla tbl_Collections
@@ -67,7 +67,7 @@ CREATE TABLE tbl_Materials (
     MaterialReceivedDate DATE NOT NULL,
     MaterialStock DECIMAL(18, 2) NOT NULL,
     UserID INT,
-    RecordInsertDateTime DATETIME NOT NULL DEFAULT GETDATE(),
+    RecordInsertDateTime DATETIME NOT NULL DEFAULT GETDATE(), -- nuevo campo
     CONSTRAINT FK_Materials_Collections FOREIGN KEY (CollectionID) REFERENCES tbl_Collections(CollectionID),
     CONSTRAINT FK_Materials_Finitures FOREIGN KEY (FinitureID) REFERENCES tbl_Finitures(FinitureID),
     CONSTRAINT FK_Materials_Formats FOREIGN KEY (FormatID) REFERENCES tbl_Formats(FormatID),
@@ -82,7 +82,7 @@ CREATE TABLE tbl_MaterialTransactions (
     MaterialTransactionQuantity DECIMAL(18, 2) NOT NULL,
     MaterialTransactionDate DATETIME NOT NULL,
     UserID INT,
-    MaterialID INT NULL, --NUEVO
+    MaterialID INT NULL,
     CONSTRAINT FK_MaterialTransactions_Users FOREIGN KEY (UserID) REFERENCES tbl_Users(UserID),
     CONSTRAINT FK_MaterialTransactions_Materials FOREIGN KEY (MaterialID) REFERENCES tbl_Materials(MaterialID) -- NUEVO
 );
@@ -177,41 +177,41 @@ END
 
 -- Procedimientos almacenados tabla roles
 
-CREATE PROCEDURE GestionarRoles
-    @accion NVARCHAR(15),
+CREATE PROCEDURE ManageRoles
+    @action NVARCHAR(15),
     @RoleID INT = NULL,
     @RoleName VARCHAR(50) = NULL,
     @RoleActive BIT = NULL
 AS
 BEGIN
-    IF @accion = 'agregar'
+    IF @action = 'add'
     BEGIN
         INSERT INTO tbl_Roles (RoleName, RoleActive) 
         VALUES (@RoleName, @RoleActive);
     END
-    ELSE IF @accion = 'borrar'
+    ELSE IF @action = 'delete'
     BEGIN
         DELETE FROM tbl_Roles WHERE RoleID = @RoleID;
     END
-    ELSE IF @accion = 'modificar'
+    ELSE IF @action = 'update'
     BEGIN
         UPDATE tbl_Roles SET 
             RoleName = @RoleName,
             RoleActive = @RoleActive
         WHERE RoleID = @RoleID;
     END
-    ELSE IF @accion = 'consultar'
+    ELSE IF @action = 'select'
     BEGIN
         SELECT RoleID, RoleName, RoleActive
         FROM tbl_Roles
         WHERE RoleID = @RoleID;
     END
-	ELSE IF @accion = 'listar'
+    ELSE IF @action = 'list'
     BEGIN
         SELECT RoleID, RoleName, RoleActive
         FROM tbl_Roles;
     END
-    ELSE IF @accion = 'listarActivos'
+    ELSE IF @action = 'listActive'
     BEGIN
         SELECT RoleID, RoleName, RoleActive
         FROM tbl_Roles
@@ -219,7 +219,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        SELECT 'Acción no válida';
+        SELECT 'Invalid action';
     END
 END;
 

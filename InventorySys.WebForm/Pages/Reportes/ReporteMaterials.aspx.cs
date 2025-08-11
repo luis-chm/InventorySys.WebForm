@@ -14,7 +14,7 @@ namespace InventorySys.WebForm.Pages.Reportes
         ReportsBL reportsBL = new ReportsBL();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ltlTimestamp.Text = $"Última actualización: {DateTime.Now:dd/MM/yyyy hh:mm tt}";
         }
         private void Alertas(string mensaje)
         {

@@ -24,6 +24,15 @@ namespace InventorySys.WebForm.Pages.Reportes
         protected global::System.Web.UI.WebControls.LinkButton btnReporteGeneral1;
 
         /// <summary>
+        /// ltlTimestamp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlTimestamp;
+
+        /// <summary>
         /// txtFechaInicio control.
         /// </summary>
         /// <remarks>

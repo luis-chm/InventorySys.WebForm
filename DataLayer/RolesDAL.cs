@@ -17,9 +17,9 @@ namespace DataLayer
             List<Roles> lista = new List<Roles>();
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@accion", "listar");
+                cmd.Parameters.AddWithValue("@action", "list");
 
                 try
                 {
@@ -49,9 +49,9 @@ namespace DataLayer
             List<Roles> lista = new List<Roles>();
             using (SqlConnection conn = new SqlConnection(DBConn.conn))
             {
-                SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@accion", "listarActivos");
+                cmd.Parameters.AddWithValue("@action", "listActive");
 
                 try
                 {
@@ -85,9 +85,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                    SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "consultar");
+                    cmd.Parameters.AddWithValue("@action", "select");
                     cmd.Parameters.AddWithValue("@RoleID", RoleID);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -120,9 +120,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                    SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "agregar");
+                    cmd.Parameters.AddWithValue("@action", "add");
                     cmd.Parameters.AddWithValue("@RoleName", roles.RoleName);
                     cmd.Parameters.AddWithValue("@RoleActive", roles.RoleActive);
 
@@ -150,9 +150,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                    SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "modificar");
+                    cmd.Parameters.AddWithValue("@action", "update");
                     cmd.Parameters.AddWithValue("@RoleID", roles.RoleID);
                     cmd.Parameters.AddWithValue("@RoleName", roles.RoleName);
                     cmd.Parameters.AddWithValue("@RoleActive", roles.RoleActive);
@@ -181,9 +181,9 @@ namespace DataLayer
                 try
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("GestionarRoles", conn);
+                    SqlCommand cmd = new SqlCommand("ManageRoles", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@accion", "borrar");
+                    cmd.Parameters.AddWithValue("@action", "delete");
                     cmd.Parameters.AddWithValue("@RoleID", RoleID);
 
                     int RowsAffected = cmd.ExecuteNonQuery();
