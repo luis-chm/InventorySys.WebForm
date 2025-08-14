@@ -67,12 +67,12 @@ namespace BussinessLayer
                 throw new Exception("Error al editar material", ex);
             }
         }
-        public int EliminarMaterials(int MaterialID)
+        public int EliminarMaterials(int MaterialID, int UserID)
         {
             try
             {
 
-                return materialsDAL.EliminarMaterials(MaterialID);
+                return materialsDAL.EliminarMaterials(MaterialID, UserID);
             }
             catch (Exception ex)
             {

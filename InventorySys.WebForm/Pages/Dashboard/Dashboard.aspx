@@ -168,7 +168,7 @@
                             <div class="row">
                                 <div class="col-md-3 mb-3">
                                     <div class="d-grid">
-                                        <a href="" class="btn btn-outline-primary btn-lg">
+                                        <a href="../Materials/Create.aspx" class="btn btn-outline-primary btn-lg">
                                             <i class="fas fa-plus-circle fa-2x mb-2 d-block"></i>
                                             Agregar Material
                                         </a>
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <div class="d-grid">
-                                        <a href="" class="btn btn-outline-success btn-lg">
+                                        <a href="../MaterialTransactions/Create.aspx" class="btn btn-outline-success btn-lg">
                                             <i class="fas fa-exchange-alt fa-2x mb-2 d-block"></i>
                                             Nueva Transacción
                                         </a>
@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <div class="d-grid">
-                                        <a href="" class="btn btn-outline-info btn-lg">
+                                        <a href="../Reportes/ReporteMaterials.aspx" class="btn btn-outline-info btn-lg">
                                             <i class="fas fa-chart-line fa-2x mb-2 d-block"></i>
                                             Ver Reportes
                                         </a>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <div class="d-grid">
-                                        <a href="" class="btn btn-outline-warning btn-lg">
+                                        <a href="../Materials/Materials.aspx" class="btn btn-outline-warning btn-lg">
                                             <i class="fas fa-search fa-2x mb-2 d-block"></i>
                                             Consultar Inventario
                                         </a>

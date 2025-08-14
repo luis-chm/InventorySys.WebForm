@@ -179,7 +179,7 @@ namespace DataLayer
                 return result;
             }
         }
-        public int EliminarMaterials(int MaterialID)
+        public int EliminarMaterials(int MaterialID, int UserID)
         {
             int result = 0;
 
@@ -192,6 +192,7 @@ namespace DataLayer
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@accion", "borrar");
                     cmd.Parameters.AddWithValue("@MaterialID", MaterialID);
+                    cmd.Parameters.AddWithValue("@UserID", UserID);
 
                     int RowsAffected = cmd.ExecuteNonQuery();
                     if (RowsAffected > 0) result = 1;

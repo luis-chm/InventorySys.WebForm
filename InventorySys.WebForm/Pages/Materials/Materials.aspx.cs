@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -56,8 +57,10 @@ namespace InventorySys.WebForm.Pages.Materials
             EntityLayer.Materials material = MaterialsBL.ObtenerMaterial(Convert.ToInt32(MaterialID));
             if (material != null)
             {
+                // Obtener el UserID del usuario actual logueado
+                int currentUserID = SessionHelper.GetCurrentUserID();
 
-                int respuesta = MaterialsBL.EliminarMaterials(material.MaterialID);
+                int respuesta = MaterialsBL.EliminarMaterials(material.MaterialID, currentUserID);
                 DeleteImage(material.MaterialIMG);
                 if (respuesta > 0)
                 {
