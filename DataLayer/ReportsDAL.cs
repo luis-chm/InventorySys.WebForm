@@ -109,7 +109,7 @@ namespace DataLayer
 
                 using (var libro = new XLWorkbook())
                 {
-                    table_Materials.TableName = "Materiales";
+                    table_Materials.TableName = "Transacciones";
                     var hoja = libro.Worksheets.Add(table_Materials);
                     hoja.ColumnsUsed().AdjustToContents();
 
